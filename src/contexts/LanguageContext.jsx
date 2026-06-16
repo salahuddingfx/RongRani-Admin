@@ -1,4 +1,4 @@
-﻿import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
+﻿import React, { createContext, useState, useContext, useEffect, useMemo } from'react';
 
 const LanguageContext = createContext();
 
@@ -12,13 +12,13 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  // Always default to 'bn' as requested
+  // Always default to'bn' as requested
   const [language, setLanguage] = useState(() => {
     try {
       const saved = localStorage.getItem('language');
-      return (saved === 'en' || saved === 'bn') ? saved : 'bn';
+      return (saved ==='en' || saved ==='bn') ? saved :'bn';
     } catch (_) {
-      return 'bn';
+      return'bn';
     }
   });
   useEffect(() => {
@@ -27,11 +27,11 @@ export const LanguageProvider = ({ children }) => {
   }, [language]);
 
   const toggleLanguage = () => {
-    setLanguage(prev => prev === 'en' ? 'bn' : 'en');
+    setLanguage(prev => prev ==='en' ?'bn' :'en');
   };
 
   const changeLanguage = (lang) => {
-    if (lang === 'en' || lang === 'bn') {
+    if (lang ==='en' || lang ==='bn') {
       setLanguage(lang);
     }
   };
@@ -172,7 +172,7 @@ export const LanguageProvider = ({ children }) => {
       shipping: 'Shipping',
       free: 'FREE',
       gift_wrapping: 'Gift Wrapping',
-      unlocked_free_shipping: ' You\'ve unlocked FREE Shipping!',
+      unlocked_free_shipping: 'You\'ve unlocked FREE Shipping!',
       more_for_free_shipping: '৳{amount} more for FREE shipping',
       secure_checkout_label: 'Secure Checkout',
       secure_checkout_desc: '100% Secure & Encrypted',
@@ -206,14 +206,14 @@ export const LanguageProvider = ({ children }) => {
       discount_label: 'Discount',
       subtotal: 'Subtotal',
       place_order: 'Place Order',
-      become_member: ' Become a Lifetime Customer!',
+      become_member: 'Become a Lifetime Customer!',
       exclusive_deals: 'Exclusive Deals',
       order_tracking: 'Order Tracking',
       or_continue_guest: 'Or continue as guest below',
       required_fields: 'Please fill in all required fields',
       trx_required: 'Please provide transaction ID and sender last 4 digits',
       cod_advance_msg: 'To secure your order and prevent fake bookings, please pay delivery charge in advance.',
-      pay_to: 'Send Money to:',
+      pay_to: 'Send Money to: ',
       trx_id_label: 'Transaction ID',
       sender_last_4: 'Sender Number (Last 4)',
       optional: '(optional)',
@@ -243,7 +243,7 @@ export const LanguageProvider = ({ children }) => {
       products_found: 'Products Found',
       searching_magic: 'Searching our magic collection...',
       clear_recent: 'Clear All',
-      view_all_results: 'View All Results ',
+      view_all_results: 'View All Results',
       switch_to_bn: 'Switch to Bangla',
       switch_to_en: 'Switch to English',
 
@@ -255,19 +255,19 @@ export const LanguageProvider = ({ children }) => {
       in_stock_msg: 'In stock',
       out_of_stock_msg: 'Out of stock',
       limited_stock_msg: 'Limited Stock',
-      buy_now_zap: 'Buy Now ',
-      order_whatsapp: 'Order on WhatsApp ',
-      add_cart_msg: 'Add to Cart ',
-      saved_wishlist: 'Saved to Wishlist ',
-      add_wishlist_msg: 'Add to Wishlist ',
-      share_friends: 'Share with friends:',
-      category_label: 'Category:',
-      sku_label: 'SKU:',
-      availability_label: 'Availability:',
-      brand_label: 'Brand:',
+      buy_now_zap: 'Buy Now',
+      order_whatsapp: 'Order on WhatsApp',
+      add_cart_msg: 'Add to Cart',
+      saved_wishlist: 'Saved to Wishlist',
+      add_wishlist_msg: 'Add to Wishlist',
+      share_friends: 'Share with friends: ',
+      category_label: 'Category: ',
+      sku_label: 'SKU: ',
+      availability_label: 'Availability: ',
+      brand_label: 'Brand: ',
       delivery_info_label: 'Delivery Information',
-      inside_cox: 'Inside Cox\'s Bazar:',
-      outside_cox: 'Outside Cox\'s Bazar:',
+      inside_cox: 'Inside Cox\'s Bazar: ',
+      outside_cox: 'Outside Cox\'s Bazar: ',
       delivery_info: 'Delivery Info',
       secure_payment: 'Secure Payment',
       trusted_handcrafted: 'Trusted handcrafted quality',
@@ -291,7 +291,7 @@ export const LanguageProvider = ({ children }) => {
       anonymous_user: 'Anonymous User',
       no_reviews_yet: 'No Reviews Yet',
       be_first_review: 'Be the first to review this beautiful product!',
-      write_review: 'Write a Review ',
+      write_review: 'Write a Review',
       share_love: 'Share the Love',
       tell_friends_art: 'Tell your friends about this handcrafted art',
       authentic_reviews: 'Authentic Reviews',
@@ -383,7 +383,7 @@ export const LanguageProvider = ({ children }) => {
       business_hours: 'Business Hours',
       follow_us_social: 'Follow Us on Social Media',
       stay_updated_social: 'Stay updated with our latest gift collections and special offers',
-      message_sent_success: 'Message sent! We will get back to you soon ',
+      message_sent_success: 'Message sent! We will get back to you soon',
       mon_sat: 'Mon-Sat',
       reply_24_hours: 'We reply within 24 hours',
       come_see_collection: 'Come see our collection',
@@ -575,7 +575,7 @@ export const LanguageProvider = ({ children }) => {
       shipping: 'শিপিং',
       free: 'ফ্রি',
       gift_wrapping: 'গিফট র‍্যাপিং',
-      unlocked_free_shipping: ' আপনি ফ্রি শিপিং আনলক করেছেন!',
+      unlocked_free_shipping: 'আপনি ফ্রি শিপিং আনলক করেছেন!',
       more_for_free_shipping: 'ফ্রি শিপিংয়ের জন্য আরও ৳{amount} যোগ করুন',
       secure_checkout_label: 'নিরাপদ চেকআউট',
       secure_checkout_desc: '১০০% নিরাপদ ও এনক্রিপ্টেড',
@@ -609,7 +609,7 @@ export const LanguageProvider = ({ children }) => {
       discount_label: 'ডিসকাউন্ট',
       subtotal: 'উপমোট',
       place_order: 'অর্ডার করুন',
-      become_member: ' আমাদের লাইফটাইম কাস্টমার হন!',
+      become_member: 'আমাদের লাইফটাইম কাস্টমার হন!',
       exclusive_deals: 'এক্সক্লুসিভ ডিল',
       order_tracking: 'অর্ডার ট্র্যাকিং',
       or_continue_guest: 'অথবা গেস্ট হিসেবে চালিয়ে যান',
@@ -646,7 +646,7 @@ export const LanguageProvider = ({ children }) => {
       products_found: 'পণ্য পাওয়া গেছে',
       searching_magic: 'আমাদের কালেকশন খোঁজা হচ্ছে...',
       clear_recent: 'সব মুছুন',
-      view_all_results: 'সব ফলাফল দেখুন ',
+      view_all_results: 'সব ফলাফল দেখুন',
       switch_to_bn: 'বাংলা করুন',
       switch_to_en: 'ইংরেজি করুন',
 
@@ -658,16 +658,16 @@ export const LanguageProvider = ({ children }) => {
       in_stock_msg: 'স্টকে আছে',
       out_of_stock_msg: 'স্টকে নেই',
       limited_stock_msg: 'সীমিত স্টক',
-      buy_now_zap: 'এখনই কিনুন ',
-      order_whatsapp: 'হোয়াটসঅ্যাপে অর্ডার করুন ',
-      add_cart_msg: 'কার্টে যোগ করুন ',
-      saved_wishlist: 'উইশলিস্টে সেভ করা হয়েছে ',
-      add_wishlist_msg: 'উইশলিস্টে যোগ করুন ',
-      share_friends: 'বন্ধুদের সাথে শেয়ার করুন:',
+      buy_now_zap: 'এখনই কিনুন',
+      order_whatsapp: 'হোয়াটসঅ্যাপে অর্ডার করুন',
+      add_cart_msg: 'কার্টে যোগ করুন',
+      saved_wishlist: 'উইশলিস্টে সেভ করা হয়েছে',
+      add_wishlist_msg: 'উইশলিস্টে যোগ করুন',
+      share_friends: 'বন্ধুদের সাথে শেয়ার করুন: ',
       category_label: 'ক্যাটাগরি:',
-      sku_label: 'এসকেইউ:',
+      sku_label: 'এসকেইউ: ',
       availability_label: 'উপলব্ধতা:',
-      brand_label: 'ব্র্যান্ড:',
+      brand_label: 'ব্র্যান্ড: ',
       delivery_info_label: 'ডেলিভারি তথ্য',
       inside_cox: 'কক্সবাজারের ভেতরে:',
       outside_cox: 'কক্সবাজারের বাইরে:',
@@ -694,7 +694,7 @@ export const LanguageProvider = ({ children }) => {
       anonymous_user: 'বেনামী ব্যবহারকারী',
       no_reviews_yet: 'এখনো কোনো রিভিউ নেই',
       be_first_review: 'এই চমৎকার পণ্যটির প্রথম রিভিউ দিন!',
-      write_review: 'রিভিউ লিখুন ',
+      write_review: 'রিভিউ লিখুন',
       share_love: 'ভালোবাসা শেয়ার করুন',
       tell_friends_art: 'এই হস্তনির্মিত শিল্প সম্পর্কে আপনার বন্ধুদের জানান',
       authentic_reviews: 'অকৃত্রিম রিভিউ',
@@ -786,7 +786,7 @@ export const LanguageProvider = ({ children }) => {
       business_hours: 'ব্যবসার সময়',
       follow_us_social: 'সোশ্যাল মিডিয়ায় আমাদের অনুসরণ করুন',
       stay_updated_social: 'আমাদের সর্বশেষ উপহার সংগ্রহ এবং বিশেষ অফারের সাথে আপডেট থাকুন',
-      message_sent_success: 'মেসেজ পাঠানো হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব ',
+      message_sent_success: 'মেসেজ পাঠানো হয়েছে! আমরা শীঘ্রই আপনার সাথে যোগাযোগ করব',
       mon_sat: 'সোম-শনি',
       reply_24_hours: 'আমরা ২৪ ঘন্টার মধ্যে উত্তর দেই',
       come_see_collection: 'আমাদের কালেকশন দেখতে আসুন',
@@ -853,9 +853,9 @@ export const LanguageProvider = ({ children }) => {
 
     // Fallback for missing category translations
     if (key && key.startsWith('cat_')) {
-      const raw = key.replace('cat_', '').replace(/_/g, ' ');
+      const raw = key.replace('cat_','').replace(/_/g,'');
       // Handle double cat_ prefix if it exists
-      const clean = raw.replace(/^cat /i, '').trim();
+      const clean = raw.replace(/^cat /i,'').trim();
       if (clean) {
         return clean.charAt(0).toUpperCase() + clean.slice(1);
       }
