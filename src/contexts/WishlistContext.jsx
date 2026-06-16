@@ -54,7 +54,7 @@ export const WishlistProvider = ({ children }) => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setWishlist(prev => [...prev.filter(i => i._id !== product._id), product]);
-            toast.success('Added to wishlist ❤️');
+            toast.success('Added to wishlist');
         } catch (error) {
             toast.error(error.response?.data?.message || 'Failed to add to wishlist');
         }
