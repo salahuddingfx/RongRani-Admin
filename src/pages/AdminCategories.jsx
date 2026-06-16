@@ -92,7 +92,7 @@ const AdminCategories = () => {
       const { url, publicId } = response.data;
       setImageMetadata({ url, publicId });
       setFormData(prev => ({ ...prev, image: url }));
-      toast.success('Category image uploaded! ✨', { id: loadingToast });
+      toast.success('Category image uploaded!', { id: loadingToast });
     } catch (error) {
       console.error('Upload Error:', error);
       toast.error(error.response?.data?.message || 'Failed to upload image', { id: loadingToast });
