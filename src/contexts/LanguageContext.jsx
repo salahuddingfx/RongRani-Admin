@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
+﻿import React, { createContext, useState, useContext, useEffect, useMemo } from 'react';
 
 const LanguageContext = createContext();
 
@@ -95,7 +95,7 @@ export const LanguageProvider = ({ children }) => {
       customers_count: 'Customers',
       all_products: 'All Products',
       browse_everything: 'Browse everything',
-      why_choose_us: 'Why Choose RongRani™?',
+      why_choose_us: 'Why Choose RongRani?',
       our_story: 'Our Story',
       view_all_products: 'View All Products',
       learn_more: 'Learn More',
@@ -882,3 +882,4 @@ export const LanguageProvider = ({ children }) => {
 };
 
 export default LanguageContext;
+
