@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Image as ImageIcon, Plus, Edit, Trash2, Eye, EyeOff, Upload, X, Sparkles, Loader2 } from 'lucide-react';
+import { Image as ImageIcon, Plus, Edit, Trash2, Eye, EyeOff, Upload, X, Sparkles, Loader2, Check, Link2 } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
@@ -48,7 +48,7 @@ const AdminBanners = () => {
       const { url, publicId } = response.data;
       setImageMetadata({ url, publicId });
       setFormData(prev => ({ ...prev, image: url }));
-      toast.success('Banner image uploaded! ✨', { id: loadingToast });
+      toast.success('Banner image uploaded!', { id: loadingToast });
     } catch (error) {
       console.error('Upload Error:', error);
       toast.error(error.response?.data?.message || 'Failed to upload image', { id: loadingToast });
@@ -254,7 +254,7 @@ const AdminBanners = () => {
                 ? 'bg-green-500 text-white'
                 : 'bg-slate-500 text-white'
                 }`}>
-                {banner.isActive ? '✓ Active' : '✗ Inactive'}
+                {banner.isActive ? <span className="flex items-center gap-1"><Check className="w-3 h-3" /> Active</span> : <span className="flex items-center gap-1"><X className="w-3 h-3" /> Inactive</span>}
               </div>
             </div>
             <div className="p-6">
@@ -263,7 +263,7 @@ const AdminBanners = () => {
                 <p className="text-sm text-slate mb-4">{banner.subtitle}</p>
               )}
               {banner.link && (
-                <p className="text-xs text-blue-600 mb-4 truncate">🔗 {banner.link}</p>
+                <p className="text-xs text-blue-600 mb-4 truncate flex items-center gap-1"><Link2 className="w-3 h-3 inline-block" /> {banner.link}</p>
               )}
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-slate bg-cream px-3 py-1 rounded-full">
