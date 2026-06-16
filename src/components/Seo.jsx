@@ -2,9 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../contexts/LanguageContext';
 
-const DEFAULT_TITLE = 'RongRani™ | Handmade Gifts in Bangladesh';
+const DEFAULT_TITLE = 'RongRani | Handmade Gifts in Bangladesh';
 const DEFAULT_DESCRIPTION =
-  'RongRani™ is Bangladesh\'s premium online shop for handmade surprise boxes, customized jewelry, and bespoke gift hampers. Fast delivery nationwide from Cox\'s Bazar.';
+  'RongRani is Bangladesh\'s premium online shop for handmade surprise boxes, customized jewelry, and bespoke gift hampers. Fast delivery nationwide from Cox\'s Bazar.';
 const DEFAULT_KEYWORDS = [
   'RongRani',
   'handmade gifts Bangladesh',
