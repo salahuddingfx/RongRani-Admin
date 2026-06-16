@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Ticket, Plus, Trash2, Edit, Search } from 'lucide-react';
+import { Ticket, Plus, Trash2, Edit, Search, X } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
@@ -260,7 +260,7 @@ const AdminCoupons = () => {
                 }}
                 className="text-slate hover:text-maroon"
               >
-                ✕
+<X className="h-5 w-5" />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
