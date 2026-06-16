@@ -54,7 +54,7 @@ const NotFound = () => {
           </h1>
           <p className="text-slate-400 text-lg md:text-xl font-medium leading-relaxed">
             The page you're searching for has vanished like a surprise gift at midnight.
-            Don't worry, we've got plenty of other wonders waiting for you! ✨
+            Don't worry, we've got plenty of other wonders waiting for you!
           </p>
         </div>
 
