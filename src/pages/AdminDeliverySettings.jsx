@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { Building2, Globe, Gift } from 'lucide-react';
 
 const AdminDeliverySettings = () => {
   const [loading, setLoading] = useState(true);
@@ -75,7 +76,7 @@ const AdminDeliverySettings = () => {
 
       <form onSubmit={handleSubmit} className="card space-y-6 max-w-2xl">
         <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
-          <label className="block text-sm font-bold text-blue-900 mb-1">🏙️ Inside Cox's Bazar City Delivery Fee (BDT)</label>
+          <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1"><Building2 className="w-4 h-4 inline-block" /> Inside Cox's Bazar City Delivery Fee (BDT)</label>
           <p className="text-xs text-blue-800 mb-3">Apply this fee for deliveries within Cox's Bazar City</p>
           <input
             name="chittagongFee"
@@ -88,7 +89,7 @@ const AdminDeliverySettings = () => {
           />
         </div>
         <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
-          <label className="block text-sm font-bold text-green-900 mb-1">🌍 Outside Cox's Bazar City Delivery Fee (BDT)</label>
+          <label className="block text-sm font-bold text-green-900 mb-1 flex items-center gap-1"><Globe className="w-4 h-4 inline-block" /> Outside Cox's Bazar City Delivery Fee (BDT)</label>
           <p className="text-xs text-green-800 mb-3">Apply this fee for deliveries to all other districts/areas</p>
           <input
             name="outsideChittagongFee"
@@ -101,7 +102,7 @@ const AdminDeliverySettings = () => {
           />
         </div>
         <div className="bg-gold/20 border-2 border-gold/50 rounded-xl p-4">
-          <label className="block text-sm font-bold text-amber-900 mb-1">🎁 Free Shipping Threshold (BDT)</label>
+          <label className="block text-sm font-bold text-amber-900 mb-1 flex items-center gap-1"><Gift className="w-4 h-4 inline-block" /> Free Shipping Threshold (BDT)</label>
           <p className="text-xs text-amber-800 mb-3">Orders above this amount get FREE shipping (both regions)</p>
           <input
             name="freeShippingThreshold"
