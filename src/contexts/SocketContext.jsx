@@ -39,7 +39,7 @@ const SocketProvider = ({ children }) => {
     return () => {
       socketInstance.off('connect', handleConnect);
       socketInstance.off('disconnect', handleDisconnect);
-      // ❌ DO NOT disconnect in dev (StrictMode)
+      // DO NOT disconnect in dev (StrictMode)
     };
   }, []);
 
