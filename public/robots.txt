@@ -1,0 +1,29 @@
+# Sitemap: https://rongrani.vercel.app/sitemap.xml
+User-agent: *
+Allow: /
+
+# Disallow admin and user-specific pages
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /profile
+Disallow: /profile/*
+Disallow: /checkout
+Disallow: /cart
+Disallow: /wishlist
+
+# Allow important pages
+Allow: /
+Allow: /shop
+Allow: /shop/*
+Allow: /product/*
+Allow: /about
+Allow: /contact
+
+# Disallow API endpoints
+Disallow: /api/*
+
+# Crawl delay
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://rongrani.vercel.app/sitemap.xml
