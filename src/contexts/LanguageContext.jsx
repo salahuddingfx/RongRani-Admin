@@ -213,7 +213,7 @@ export const LanguageProvider = ({ children }) => {
       required_fields: 'Please fill in all required fields',
       trx_required: 'Please provide transaction ID and sender last 4 digits',
       cod_advance_msg: 'To secure your order and prevent fake bookings, please pay delivery charge in advance.',
-      pay_to: 'Send Money to: ',
+      pay_to: 'Send Money to:',
       trx_id_label: 'Transaction ID',
       sender_last_4: 'Sender Number (Last 4)',
       optional: '(optional)',
