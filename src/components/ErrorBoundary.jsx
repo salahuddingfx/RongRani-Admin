@@ -1,4 +1,5 @@
 import React from 'react';
+import { CircleOff } from 'lucide-react';
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -25,7 +26,7 @@ class ErrorBoundary extends React.Component {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8 text-center">
             <div className="mb-6">
-              <div className="text-6xl mb-4">😵</div>
+              <CircleOff className="w-16 h-16 text-gray-400 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-900 mb-2">
                 Oops! Something went wrong
               </h1>
