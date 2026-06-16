@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { ShoppingBag, Search, Eye, CheckCircle, XCircle, Clock, Truck, Download, Edit, DollarSign, MessageSquare, Copy, ClipboardCheck, LayoutDashboard, Volume2, VolumeX, ListChecks, Square, CheckSquare, Gift } from 'lucide-react';
+import { ShoppingBag, Search, Eye, CheckCircle, XCircle, Clock, Truck, Download, Edit, DollarSign, MessageSquare, Copy, ClipboardCheck, LayoutDashboard, Volume2, VolumeX, ListChecks, Square, CheckSquare, Gift, AlertTriangle } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
@@ -195,7 +195,7 @@ const AdminOrders = () => {
 
   const copyToClipboard = (text, label) => {
     navigator.clipboard.writeText(text);
-    toast.success(`${label} copied!`, { icon: '📋' });
+    toast.success(`${label} copied!`);
   };
 
   const getOrderStats = () => {
@@ -371,7 +371,7 @@ const AdminOrders = () => {
 
     return (
       <div className={`group relative inline-flex items-center px-2 py-0.5 rounded text-xs font-bold border ${color} ml-2 cursor-help`}>
-        <span>⚠️ {risk} Risk</span>
+        <span className="flex items-center gap-1"><AlertTriangle className="w-3.5 h-3.5" /> {risk} Risk</span>
         {reasons && reasons.length > 0 && (
           <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 p-2 bg-slate-800 text-white text-[10px] rounded shadow-lg pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity z-10">
             <p className="font-bold border-b border-slate-600 pb-1 mb-1">Risk Reasons:</p>
@@ -863,7 +863,7 @@ const AdminOrders = () => {
                     className="h-5 w-5 text-maroon rounded focus:ring-maroon cursor-pointer"
                   />
                   <label htmlFor="isShippingPaid" className="text-sm font-bold text-slate cursor-pointer">
-                    ✅ Shipping Charge is PAID (Display as "Paid" in Invoice)
+                    <CheckCircle className="w-4 h-4 inline-block" /> Shipping Charge is PAID (Display as "Paid" in Invoice)
                   </label>
                 </div>
               </div>
