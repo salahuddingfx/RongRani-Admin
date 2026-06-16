@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { Plus, Trash2, Edit, Search, Package, Globe, Tag, Settings, X, Upload, Loader2, Image as ImageIcon } from 'lucide-react';
+import { Plus, Trash2, Edit, Search, Package, Globe, Tag, Settings, X, Upload, Loader2, Image as ImageIcon, Pin, Rocket } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
@@ -83,7 +83,7 @@ const AdminProducts = () => {
         images: prev.images ? `${prev.images}\n${url}` : url
       }));
 
-      toast.success('Image uploaded successfully! ✨', { id: loadingToast });
+      toast.success('Image uploaded successfully!', { id: loadingToast });
     } catch (error) {
       console.error('Upload Error:', error);
       toast.error(error.response?.data?.message || 'Failed to upload image', { id: loadingToast });
@@ -631,7 +631,7 @@ const AdminProducts = () => {
                     </button>
                     <div className="flex-1 flex justify-between items-center min-w-0">
                       <p className="text-[10px] text-slate-400 font-medium truncate">
-                        📌 Paste URLs OR use Upload to store image in MongoDB
+<Pin className="w-3 h-3 inline-block mr-1" /> Paste URLs OR use Upload to store image in MongoDB
                       </p>
                     </div>
                   </div>
@@ -641,7 +641,7 @@ const AdminProducts = () => {
                     <div className="mt-5 bg-slate-50 p-4 rounded-2xl border border-slate-200">
                       <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-3 flex items-center gap-2">
                         <ImageIcon className="h-3 w-3" />
-                        Live Preview (Click ✖ to remove)
+                        Live Preview (Click <X className="w-3 h-3 inline-block mx-0.5" /> to remove)
                       </p>
                       <div className="flex flex-wrap gap-3">
                         {formData.images.split(/[,\n]/).filter(u => u.trim()).map((url, idx) => {
@@ -692,7 +692,7 @@ const AdminProducts = () => {
                     <div className="bg-maroon/10 p-1.5 rounded-lg">
                       <Settings className="h-5 w-5 text-maroon" />
                     </div>
-                    <span>SEO & Search Optimization 🚀</span>
+                    <span className="flex items-center gap-1">SEO & Search Optimization <Rocket className="w-4 h-4" /></span>
                   </h3>
 
                   <div className="space-y-5">
