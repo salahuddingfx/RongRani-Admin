@@ -408,13 +408,13 @@ const AdminOrders = () => {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-maroon flex items-center">
           <ShoppingBag className="mr-3 h-8 w-8" />
           Manage Orders
         </h1>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
           <button
             onClick={() => setSoundEnabled(!soundEnabled)}
             className={`p-2 rounded-full transition-colors ${soundEnabled ? 'bg-emerald-100 text-emerald-600' : 'bg-red-100 text-red-600'}`}
@@ -617,16 +617,17 @@ const AdminOrders = () => {
               </div>
 
               {/* Amount & Actions */}
-              <div className="flex flex-col items-end space-y-4 lg:pl-6 lg:border-l-2 border-slate/20">
-                <div className="text-right">
+              {/* Amount & Actions */}
+              <div className="flex flex-col items-stretch lg:items-end space-y-4 w-full lg:w-auto lg:pl-6 lg:border-l-2 border-slate/20 pt-4 lg:pt-0 border-t lg:border-t-0">
+                <div className="text-left lg:text-right">
                   <p className="text-slate text-sm font-semibold">Total Amount</p>
                   <p className="text-3xl font-bold text-maroon">৳{(order.total || 0).toLocaleString()}</p>
                   <p className="text-sm text-slate mt-1 capitalize">{order.paymentMethod}</p>
                   {/* Manual Payment Verification Info */}
                   {order.paymentDetails && (order.paymentDetails.transactionId || order.paymentDetails.senderLastDigits) && (
-                    <div className="mt-2 text-right bg-slate-50 dark:bg-slate-700/50 p-2 rounded border border-slate-200 dark:border-slate-600 inline-block min-w-[140px]">
+                    <div className="mt-2 text-left lg:text-right bg-slate-50 dark:bg-slate-700/50 p-2 rounded border border-slate-200 dark:border-slate-600 inline-block min-w-[140px]">
                       {order.paymentDetails.transactionId && (
-                        <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-end gap-1">
+                        <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center justify-start lg:justify-end gap-1">
                           TrxID: <span className="font-mono font-bold text-maroon dark:text-pink-400 select-all">{order.paymentDetails.transactionId}</span>
                           <button
                             onClick={() => copyToClipboard(order.paymentDetails.transactionId, 'Transaction ID')}
@@ -645,14 +646,14 @@ const AdminOrders = () => {
                   )}
                 </div>
 
-                <div className="flex flex-col items-end space-y-3">
-                  <div className="flex gap-2">
+                <div className="flex flex-col items-stretch lg:items-end space-y-3 w-full lg:w-auto">
+                  <div className="flex flex-col sm:flex-row gap-2 w-full lg:w-auto">
                     <button
                       onClick={() => {
                         const token = localStorage.getItem('token');
                         window.open(`/api/orders/${order._id}/invoice?token=${token}`, '_blank');
                       }}
-                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors flex items-center gap-2 border-2 border-blue-200"
+                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors flex items-center justify-center gap-2 border-2 border-blue-200 flex-1"
                       title="Download Invoice"
                     >
                       <Download className="h-4 w-4" />
@@ -660,7 +661,7 @@ const AdminOrders = () => {
                     </button>
                     <button
                       onClick={() => openEditModal(order)}
-                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-colors flex items-center gap-2 border-2 border-slate-200"
+                      className="px-4 py-2 rounded-lg text-sm font-semibold bg-slate-50 text-slate-700 hover:bg-slate-100 transition-colors flex items-center justify-center gap-2 border-2 border-slate-200 flex-1"
                       title="Edit Order Details"
                     >
                       <Edit className="h-4 w-4" />
@@ -673,7 +674,7 @@ const AdminOrders = () => {
                     order.orderStatus !== 'cancelled' && (
                       <button
                         onClick={() => openCourierModal(order)}
-                        className="px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors flex items-center gap-2 border-2 border-emerald-300"
+                        className="px-4 py-2 rounded-lg text-sm font-semibold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 transition-colors flex items-center justify-center gap-2 border-2 border-emerald-300 w-full"
                       >
                         <Truck className="h-4 w-4" />
                         Send to Courier
@@ -682,8 +683,8 @@ const AdminOrders = () => {
 
                   {/* Show tracking info if already sent */}
                   {order.courierInfo?.trackingCode && (
-                    <div className="px-4 py-2 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 border-2 border-blue-300">
-                      <div className="flex items-center gap-2">
+                    <div className="px-4 py-2 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 border-2 border-blue-300 w-full text-center lg:text-left">
+                      <div className="flex items-center justify-center lg:justify-start gap-2">
                         <Truck className="h-4 w-4" />
                         <span>Tracking: {order.courierInfo.trackingCode}</span>
                       </div>
@@ -697,7 +698,7 @@ const AdminOrders = () => {
                     <select
                       value={order.orderStatus}
                       onChange={(e) => updateOrderStatus(order._id, e.target.value)}
-                      className="input-field text-sm"
+                      className="input-field text-sm w-full"
                     >
                       <option value="pending">Pending</option>
                       <option value="processing">Processing</option>
@@ -708,7 +709,7 @@ const AdminOrders = () => {
                   )}
 
                   {/* Payment Status Dropdown for Admin */}
-                  <div className="flex items-center space-x-2 w-full justify-end mt-2">
+                  <div className="flex items-center space-x-2 w-full justify-between lg:justify-end mt-2">
                     <span className="text-xs font-bold text-slate">Payment:</span>
                     <select
                       value={order.paymentStatus || 'pending'}
@@ -739,7 +740,7 @@ const AdminOrders = () => {
                           }
                         }
                       }}
-                      className={`input-field text-sm py-1 px-2 w-auto border-2 ${order.paymentStatus === 'paid' ? 'border-green-500 text-green-700' : 'border-orange-300 text-orange-700'}`}
+                      className={`input-field text-sm py-1 px-2 w-full lg:w-auto border-2 ${order.paymentStatus === 'paid' ? 'border-green-500 text-green-700' : 'border-orange-300 text-orange-700'}`}
                     >
                       <option value="pending">Pending</option>
                       <option value="paid">Paid</option>
@@ -748,7 +749,7 @@ const AdminOrders = () => {
                   </div>
                   <button
                     onClick={() => handleDeleteOrder(order._id)}
-                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-red-50 text-red-700 hover:bg-red-100 transition-colors"
+                    className="px-4 py-2 rounded-lg text-sm font-semibold bg-red-50 text-red-700 hover:bg-red-100 transition-colors w-full"
                   >
                     Delete Order
                   </button>
