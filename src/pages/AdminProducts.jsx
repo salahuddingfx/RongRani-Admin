@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Plus, Trash2, Edit, Search, Package, Globe, Tag, Settings, X, Upload, Loader2, Image as ImageIcon, Pin, Rocket } from 'lucide-react';
-import axios from 'axios';
 import toast from 'react-hot-toast';
+import axios from 'axios';
 import { useSocket } from '../contexts/socketContextBase';
+import { getImageUrl } from '../utils/productUtils';
+
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -386,7 +388,7 @@ const AdminProducts = () => {
                 <tr key={product._id} className="hover:bg-cream-light transition-colors">
                   <td className="px-6 py-4">
                     <img
-                      src={typeof product.images?.[0] === 'string' ? product.images?.[0] : product.images?.[0]?.url || 'https://via.placeholder.com/100'}
+                      src={getImageUrl(product.images?.[0]) || 'https://via.placeholder.com/100'}
                       alt={product.name}
                       className="h-16 w-16 object-cover rounded-lg shadow-soft"
                     />
@@ -657,7 +659,7 @@ const AdminProducts = () => {
                           return (
                             <div key={idx} className="relative group h-20 w-20 flex-shrink-0 animate-in fade-in zoom-in duration-300">
                               <img
-                                src={displayUrl}
+                                src={getImageUrl(displayUrl)}
                                 alt={`Preview ${idx + 1}`}
                                 className={`h-full w-full object-cover rounded-xl border-2 transition-all ${idx === 0 ? 'border-maroon ring-2 ring-maroon/20' : 'border-white'} shadow-sm group-hover:shadow-md`}
                                 onError={(e) => {
