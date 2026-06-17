@@ -155,17 +155,17 @@ const AdminUsers = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
           <div>
             <h1 className="text-4xl font-black text-maroon mb-2">
               User Management
             </h1>
             <p className="text-slate text-lg">Manage all registered users and their permissions</p>
           </div>
-          <button className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-2">
+          <button className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-2 w-full sm:w-auto justify-center">
             <UserPlus className="h-5 w-5" />
             <span>Add New User</span>
           </button>
