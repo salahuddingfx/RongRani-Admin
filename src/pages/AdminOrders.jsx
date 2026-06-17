@@ -454,7 +454,7 @@ const AdminOrders = () => {
       )}
 
       {/* Stats Summary Section */}
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
         {[
           { label: 'Total', count: stats.total, color: 'bg-slate-100 text-slate-800 border-slate-200', icon: <ShoppingBag className="h-4 w-4" /> },
           { label: 'Pending', count: stats.pending, color: 'bg-yellow-50 text-yellow-700 border-yellow-200', icon: <Clock className="h-4 w-4" /> },
@@ -462,7 +462,7 @@ const AdminOrders = () => {
           { label: 'Shipped', count: stats.shipped, color: 'bg-indigo-50 text-indigo-700 border-indigo-200', icon: <Truck className="h-4 w-4" /> },
           { label: 'Delivered', count: stats.delivered, color: 'bg-emerald-50 text-emerald-700 border-emerald-200', icon: <CheckCircle className="h-4 w-4" /> },
         ].map((item, idx) => (
-          <div key={idx} className={`p-4 rounded-xl border-2 ${item.color} flex flex-col items-center justify-center text-center transition-transform hover:scale-105`}>
+          <div key={idx} className={`p-4 rounded-xl border-2 ${item.color} flex flex-col items-center justify-center text-center transition-transform hover:scale-105 ${idx === 4 ? 'col-span-2 sm:col-span-1' : ''}`}>
             {item.icon}
             <span className="text-2xl font-black mt-1 leading-none">{item.count}</span>
             <span className="text-[10px] font-bold uppercase tracking-wider mt-1 opacity-70">{item.label}</span>
