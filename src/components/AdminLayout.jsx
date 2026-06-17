@@ -100,7 +100,7 @@ const AdminLayout = () => {
         {/* Admin Sidebar */}
         <nav
           className={`
-            fixed lg:sticky top-0 left-0 h-screen
+            fixed lg:sticky top-0 lg:top-[92px] left-0 h-screen lg:h-[calc(100vh-92px)]
             w-72 md:w-80 lg:w-72
             bg-white shadow-2xl
             transform transition-transform duration-300 ease-in-out
