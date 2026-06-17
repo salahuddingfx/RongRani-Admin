@@ -83,3 +83,36 @@ export const getProductPath = (product) => {
   const param = getProductRouteParam(product);
   return param ? `/product/${param}` : '/shop';
 };
+
+/**
+ * Normalizes image paths/objects to point to standard paths.
+ * Resolves absolute local-dev URLs (e.g. localhost:5000/api/images/...)
+ * into environment-relative paths (/api/images/...) for correct proxy routing.
+ */
+export const getImageUrl = (image) => {
+  if (!image) return '';
+  let url = '';
+  if (typeof image === 'string') {
+    url = image;
+  } else if (typeof image === 'object') {
+    url = image.url || image.secure_url || '';
+  }
+
+  if (!url) return '';
+
+  // Return base64/blob as is
+  if (url.startsWith('data:') || url.startsWith('blob:')) {
+    return url;
+  }
+
+  // Convert absolute local/dev backend urls or any full backend urls of type /api/images/
+  // back to relative /api/images/ so they go through Vite or Vercel routing correctly.
+  if (url.includes('/api/images/')) {
+    const parts = url.split('/api/images/');
+    const imageId = parts[parts.length - 1];
+    return `/api/images/${imageId}`;
+  }
+
+  return url;
+};
+
