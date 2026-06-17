@@ -100,7 +100,7 @@ const AdminReviews = () => {
 
       <div className="card overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[850px]">
             <thead className="bg-maroon text-white">
               <tr>
                 <th className="px-6 py-4 text-left">Product</th>
