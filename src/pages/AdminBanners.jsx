@@ -181,9 +181,9 @@ const AdminBanners = () => {
   }
 
   return (
-    <div className="p-6">
+    <div className="p-4 md:p-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
         <div>
           <h1 className="text-4xl font-black text-maroon mb-2">
             Banner Management
@@ -196,7 +196,7 @@ const AdminBanners = () => {
             setFormData({ title: '', subtitle: '', link: '', image: '', isActive: true, order: 0 });
             setShowModal(true);
           }}
-          className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-2"
+          className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center space-x-2 w-full sm:w-auto"
         >
           <Plus className="h-5 w-5" />
           <span>Add New Banner</span>
@@ -412,41 +412,43 @@ const AdminBanners = () => {
               <div>
                 <label className="block text-sm font-bold text-maroon mb-2">Image URL *</label>
                 <div className="space-y-4">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       value={formData.image}
                       onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      className="flex-1 px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+                      className="flex-1 px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate w-full"
                       required
                       placeholder="https://example.com/banner-image.jpg"
                     />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const randomId = Math.floor(Math.random() * 1000);
-                        setFormData({ ...formData, image: `https://picsum.photos/seed/${randomId}/1200/600` });
-                      }}
-                      className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-slate-200 transition-colors"
-                    >
-                      Random URL
-                    </button>
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      accept="image/*"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={isUploading}
-                      className="bg-maroon text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-maroon/90 transition-colors disabled:opacity-50 flex items-center gap-2"
-                    >
-                      {isUploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
-                      {isUploading ? 'Uploading...' : 'Direct Upload'}
-                    </button>
+                    <div className="flex gap-2 w-full sm:w-auto">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const randomId = Math.floor(Math.random() * 1000);
+                          setFormData({ ...formData, image: `https://picsum.photos/seed/${randomId}/1200/600` });
+                        }}
+                        className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-slate-200 transition-colors flex-1 sm:flex-none text-center"
+                      >
+                        Random URL
+                      </button>
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileUpload}
+                        className="hidden"
+                        accept="image/*"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploading}
+                        className="bg-maroon text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-maroon/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 flex-1 sm:flex-none"
+                      >
+                        {isUploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
+                        {isUploading ? 'Uploading...' : 'Direct Upload'}
+                      </button>
+                    </div>
                   </div>
 
                   {/* Image Preview */}
