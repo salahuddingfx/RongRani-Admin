@@ -142,8 +142,8 @@ const AdminCoupons = () => {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-4 md:p-6">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
         <h1 className="text-3xl font-bold text-maroon flex items-center">
           <Ticket className="mr-3 h-8 w-8" />
           Manage Coupons
@@ -164,7 +164,7 @@ const AdminCoupons = () => {
             });
             setShowAddModal(true);
           }}
-          className="btn-primary flex items-center space-x-2"
+          className="btn-primary flex items-center justify-center space-x-2 w-full sm:w-auto"
         >
           <Plus className="h-5 w-5" />
           <span>Add Coupon</span>
@@ -264,7 +264,7 @@ const AdminCoupons = () => {
               </button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate mb-2">Coupon Code</label>
                   <input
@@ -289,7 +289,7 @@ const AdminCoupons = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate mb-2">Discount Value</label>
                   <input
@@ -314,7 +314,7 @@ const AdminCoupons = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-semibold text-slate mb-2">Max Discount (৳)</label>
                   <input
