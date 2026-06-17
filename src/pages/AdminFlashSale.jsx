@@ -28,10 +28,24 @@ const AdminFlashSale = () => {
 
     const getImageUrl = (value) => {
         if (!value) return '';
-        if (typeof value === 'string') return value;
-        if (typeof value === 'object' && value.url) return value.url;
-        return '';
+        let url = '';
+        if (typeof value === 'string') {
+            url = value;
+        } else if (typeof value === 'object') {
+            url = value.url || value.secure_url || '';
+        }
+        if (!url) return '';
+        if (url.startsWith('data:') || url.startsWith('blob:')) {
+            return url;
+        }
+        if (url.includes('/api/images/')) {
+            const parts = url.split('/api/images/');
+            const imageId = parts[parts.length - 1];
+            return `/api/images/${imageId}`;
+        }
+        return url;
     };
+
 
     const toLocalInputValue = (dateValue) => {
         if (!dateValue) return '';
@@ -322,7 +336,7 @@ const AdminFlashSale = () => {
                                                             setSearchResults([]);
                                                         }}
                                                     >
-                                                        <img src={p.images[0]?.url} className="w-8 h-8 rounded object-cover" alt="" />
+                                                         <img src={getImageUrl(p.images?.[0]) || getImageUrl(p.image)} className="w-8 h-8 rounded object-cover" alt="" />
                                                         <div className="text-sm">
                                                             <p className="font-bold truncate">{p.name}</p>
                                                             <p className="text-xs text-slate-500">Stock: {p.stock}</p>
@@ -369,7 +383,7 @@ const AdminFlashSale = () => {
                                     {formData.products.map((item, idx) => (
                                         <div key={idx} className="flex items-center justify-between bg-white border border-slate-200 p-3 rounded-lg shadow-sm">
                                             <div className="flex items-center gap-3">
-                                                <img src={item.image} className="w-12 h-12 rounded-lg object-cover" alt="" />
+                                                 <img src={getImageUrl(item.image)} className="w-12 h-12 rounded-lg object-cover" alt="" />
                                                 <div>
                                                     <p className="font-bold text-charcoal">{item.name}</p>
                                                     <div className="flex gap-4 text-sm text-slate-500">
