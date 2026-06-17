@@ -136,7 +136,7 @@ const AdminDashboard = () => {
           <BarChart3 className="mr-2 h-6 w-6" />
           Quick Actions
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           <Link
             to="/admin/products"
             className="flex items-center space-x-3 p-5 bg-maroon/10 hover:bg-maroon/20 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-maroon/20 hover:border-maroon/40"
