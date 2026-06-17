@@ -15,6 +15,7 @@ const AdminFlashSale = () => {
         name: '',
         startTime: '',
         endTime: '',
+        isActive: true,
         products: []
     });
 
@@ -34,9 +35,14 @@ const AdminFlashSale = () => {
 
     const toLocalInputValue = (dateValue) => {
         if (!dateValue) return '';
-        const local = new Date(dateValue);
-        local.setMinutes(local.getMinutes() - local.getTimezoneOffset());
-        return local.toISOString().slice(0, 16);
+        const d = new Date(dateValue);
+        if (isNaN(d.getTime())) return '';
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        const hours = String(d.getHours()).padStart(2, '0');
+        const minutes = String(d.getMinutes()).padStart(2, '0');
+        return `${year}-${month}-${day}T${hours}:${minutes}`;
     };
 
     useEffect(() => {
@@ -125,6 +131,7 @@ const AdminFlashSale = () => {
                 ...formData,
                 startTime: new Date(formData.startTime).toISOString(),
                 endTime: new Date(formData.endTime).toISOString(),
+                isActive: formData.isActive,
                 products: formData.products.map(p => ({
                     product: p.product,
                     discountPrice: p.discountPrice,
@@ -145,7 +152,7 @@ const AdminFlashSale = () => {
             toast.success(editingSaleId ? 'Flash Sale Updated Successfully!' : 'Flash Sale Created Successfully!');
             setShowForm(false);
             fetchFlashSales();
-            setFormData({ name: '', startTime: '', endTime: '', products: [] });
+            setFormData({ name: '', startTime: '', endTime: '', isActive: true, products: [] });
             setEditingSaleId(null);
         } catch (error) {
             console.error(error);
@@ -189,10 +196,12 @@ const AdminFlashSale = () => {
     const handleEdit = (sale) => {
         setEditingSaleId(sale._id);
         setShowForm(true);
+        const isExpired = new Date(sale.endTime) < new Date();
         setFormData({
             name: sale.name || '',
             startTime: toLocalInputValue(sale.startTime),
             endTime: toLocalInputValue(sale.endTime),
+            isActive: isExpired ? true : (sale.isActive !== undefined ? sale.isActive : true),
             products: (sale.products || []).map((p) => ({
                 product: p.product?._id || p.product,
                 name: p.product?.name || p.name,
@@ -223,7 +232,9 @@ const AdminFlashSale = () => {
                 <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
                     <div className="bg-white rounded-2xl p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
                         <div className="flex justify-between items-center mb-6">
-                            <h2 className="text-2xl font-bold text-charcoal">Create Flash Sale</h2>
+                            <h2 className="text-2xl font-bold text-charcoal">
+                                {editingSaleId ? 'Edit Flash Sale' : 'Create Flash Sale'}
+                            </h2>
                             <button onClick={() => setShowForm(false)} className="p-2 hover:bg-slate-100 rounded-full">
                                 <X className="w-6 h-6" />
                             </button>
@@ -261,6 +272,25 @@ const AdminFlashSale = () => {
                                         onChange={(e) => setFormData({ ...formData, endTime: e.target.value })}
                                         required
                                     />
+                                </div>
+                            </div>
+
+                            {/* Active Toggle */}
+                            <div>
+                                <label className="block text-sm font-bold text-slate-700 mb-2">Campaign Status</label>
+                                <div className="flex items-center mt-3">
+                                    <button
+                                        type="button"
+                                        onClick={() => setFormData({ ...formData, isActive: !formData.isActive })}
+                                        className={`relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-maroon focus:ring-offset-2 ${formData.isActive ? 'bg-maroon' : 'bg-slate-200'}`}
+                                    >
+                                        <span
+                                            className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${formData.isActive ? 'translate-x-5' : 'translate-x-0'}`}
+                                        />
+                                    </button>
+                                    <span className="ml-3 text-sm font-medium text-slate-700">
+                                        {formData.isActive ? 'Active / Scheduled' : 'Paused / Inactive'}
+                                    </span>
                                 </div>
                             </div>
 
@@ -367,7 +397,7 @@ const AdminFlashSale = () => {
                                     onClick={() => {
                                         setShowForm(false);
                                         setEditingSaleId(null);
-                                        setFormData({ name: '', startTime: '', endTime: '', products: [] });
+                                        setFormData({ name: '', startTime: '', endTime: '', isActive: true, products: [] });
                                     }}
                                     className="px-6 py-2 text-slate-500 font-bold hover:text-charcoal mr-2"
                                 >
@@ -453,7 +483,7 @@ const AdminFlashSale = () => {
                                 disabled={isExpired}
                                 className={`text-xs font-black uppercase px-3 py-1.5 rounded-lg transition-colors ${sale.isActive ? 'bg-red-50 text-red-600 hover:bg-red-100' : 'bg-green-50 text-green-600 hover:bg-green-100'} ${isExpired ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
-                                {sale.isActive ? 'Deactivate' : 'Activate Ahora'}
+                                {sale.isActive ? 'Deactivate' : 'Activate'}
                             </button>
                             <div className="flex items-center gap-2">
                                 <button
