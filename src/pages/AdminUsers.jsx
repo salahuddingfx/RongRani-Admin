@@ -230,7 +230,7 @@ const AdminUsers = () => {
       {/* Users Table */}
       <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-maroon/10">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[900px]">
             <thead className="bg-maroon text-white">
               <tr>
                 <th className="px-6 py-4 text-left text-sm font-bold uppercase">Avatar</th>
