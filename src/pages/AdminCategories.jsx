@@ -238,7 +238,7 @@ const AdminCategories = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 p-6">
+    <div className="min-h-screen bg-slate-900 p-4 md:p-6">
       {/* Header */}
       <div className="bg-maroon rounded-2xl shadow-2xl p-8 mb-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -248,7 +248,7 @@ const AdminCategories = () => {
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-white text-maroon hover:bg-white/90 px-6 py-3 rounded-xl font-bold text-lg flex items-center space-x-2 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105"
+            className="bg-white text-maroon hover:bg-white/90 px-6 py-3 rounded-xl font-bold text-lg flex items-center justify-center space-x-2 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 w-full md:w-auto"
           >
             <Plus className="h-6 w-6" />
             <span>Add Category</span>
@@ -411,7 +411,7 @@ const AdminCategories = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-white mb-2">
                     Icon
@@ -451,7 +451,7 @@ const AdminCategories = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-bold text-white mb-2">
                     Display Order
@@ -496,31 +496,33 @@ const AdminCategories = () => {
               <div>
                 <label className="block text-sm font-bold text-white mb-2">Category Cover Image</label>
                 <div className="space-y-4">
-                  <div className="flex gap-2">
+                  <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       name="image"
                       value={typeof formData.image === 'string' ? formData.image : formData.image?.url || ''}
                       onChange={handleInputChange}
-                      className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
+                      className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon w-full"
                       placeholder="https://example.com/category-image.jpg"
                     />
-                    <input
-                      type="file"
-                      ref={fileInputRef}
-                      onChange={handleFileUpload}
-                      className="hidden"
-                      accept="image/*"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => fileInputRef.current?.click()}
-                      disabled={isUploading}
-                      className="bg-maroon text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-maroon/90 transition-colors disabled:opacity-50 flex items-center gap-2"
-                    >
-                      {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
-                      {isUploading ? 'Uploading...' : 'Direct Upload'}
-                    </button>
+                    <div className="flex gap-2 w-full sm:w-auto">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleFileUpload}
+                        className="hidden"
+                        accept="image/*"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={isUploading}
+                        className="bg-maroon text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-maroon/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 flex-1 sm:flex-none"
+                      >
+                        {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+                        {isUploading ? 'Uploading...' : 'Direct Upload'}
+                      </button>
+                    </div>
                   </div>
 
                   {formData.image && (
