@@ -7,25 +7,17 @@ import toast from 'react-hot-toast';
 const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    newPassword: '',
-    confirmPassword: ''
-  });
+  const [formData, setFormData] = useState({ newPassword: '', confirmPassword: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const validToken = true;
 
-  useEffect(() => {
-    // Optionally, verify token validity here
-  }, [token]);
+  useEffect(() => {}, [token]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -38,7 +30,6 @@ const ResetPassword = () => {
       setLoading(false);
       return;
     }
-
     if (formData.newPassword.length < 6) {
       setError('Password must be at least 6 characters long');
       setLoading(false);
@@ -46,10 +37,7 @@ const ResetPassword = () => {
     }
 
     try {
-      await axios.post('/api/auth/reset-password', {
-        token,
-        newPassword: formData.newPassword
-      });
+      await axios.post('/api/auth/reset-password', { token, newPassword: formData.newPassword });
       toast.success('Password reset successfully!');
       navigate('/login');
     } catch (error) {
@@ -62,16 +50,11 @@ const ResetPassword = () => {
 
   if (!validToken) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream dark:bg-gray-900 px-4">
-        <div className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-lg shadow-xl p-8 w-full max-w-md text-center">
-          <h2 className="text-3xl font-bold text-red-600 mb-4">Invalid Token</h2>
-          <p className="text-gray-600 dark:text-gray-400 mb-6">
-            The reset link is invalid or has expired.
-          </p>
-          <button
-            onClick={() => navigate('/forgot-password')}
-            className="bg-maroon text-white py-3 px-6 rounded-lg hover:bg-maroon/80 transition-colors"
-          >
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center px-4">
+        <div className="w-full max-w-sm bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm text-center">
+          <h2 className="text-lg font-bold text-red-600 mb-2">Invalid Token</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">The reset link is invalid or has expired.</p>
+          <button onClick={() => navigate('/forgot-password')} className="bg-maroon text-white py-2.5 px-6 rounded-xl text-sm font-semibold hover:bg-maroon-dark transition-all">
             Request New Reset Link
           </button>
         </div>
@@ -80,80 +63,71 @@ const ResetPassword = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-cream dark:bg-gray-900 px-4">
-      <div className="bg-white/20 dark:bg-gray-800/20 backdrop-blur-md rounded-lg shadow-xl p-8 w-full max-w-md">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-maroon mb-2">Reset Password</h2>
-          <p className="text-gray-600 dark:text-gray-400">
-            Enter your new password below.
-          </p>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-6">
+          <div className="w-12 h-12 flex items-center justify-center rounded-xl overflow-hidden mx-auto mb-3">
+            <img src="/RongRani-Logo.png" alt="RongRani" className="w-full h-full object-contain" />
+          </div>
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white">Reset Password</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Enter your new password below</p>
         </div>
 
-        {error && (
-          <div className="bg-red-100 dark:bg-red-900/20 border border-red-400 text-red-700 dark:text-red-400 px-4 py-3 rounded mb-6">
-            {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              New Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                name="newPassword"
-                value={formData.newPassword}
-                onChange={handleChange}
-                required
-                className="w-full pl-10 pr-12 py-3 rounded-lg bg-white/20 dark:bg-gray-700/20 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-maroon"
-                placeholder="Enter new password"
-              />
-              <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-              </button>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm">
+          {error && (
+            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-3 py-2.5 rounded-xl mb-4 text-xs">
+              {error}
             </div>
-          </div>
+          )}
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Confirm New Password
-            </label>
-            <div className="relative">
-              <input
-                type={showConfirmPassword ? 'text' : 'password'}
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                required
-                className="w-full pl-10 pr-12 py-3 rounded-lg bg-white/20 dark:bg-gray-700/20 backdrop-blur-sm border border-white/30 dark:border-gray-600/30 focus:outline-none focus:ring-2 focus:ring-maroon"
-                placeholder="Confirm new password"
-              />
-              <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-              <button
-                type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                className="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600"
-              >
-                {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-              </button>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1.5">New Password</label>
+              <div className="relative">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="newPassword"
+                  value={formData.newPassword}
+                  onChange={handleChange}
+                  required
+                  className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-maroon focus:ring-2 focus:ring-maroon/10 transition-all"
+                  placeholder="Enter new password"
+                />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-maroon text-white py-3 px-6 rounded-lg hover:bg-maroon/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Resetting...' : 'Reset Password'}
-          </button>
-        </form>
+            <div>
+              <label className="block text-xs font-medium text-slate-600 dark:text-slate-300 mb-1.5">Confirm Password</label>
+              <div className="relative">
+                <input
+                  type={showConfirmPassword ? 'text' : 'password'}
+                  name="confirmPassword"
+                  value={formData.confirmPassword}
+                  onChange={handleChange}
+                  required
+                  className="w-full pl-10 pr-10 py-2.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-sm text-slate-800 dark:text-white placeholder-slate-400 focus:outline-none focus:border-maroon focus:ring-2 focus:ring-maroon/10 transition-all"
+                  placeholder="Confirm new password"
+                />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+                <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                  {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-maroon text-white py-2.5 rounded-xl text-sm font-semibold hover:bg-maroon-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {loading ? 'Resetting...' : 'Reset Password'}
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
