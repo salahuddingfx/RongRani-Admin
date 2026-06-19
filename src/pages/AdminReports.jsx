@@ -46,38 +46,42 @@ const AdminReports = () => {
     count: item.count,
   }));
 
-  const colors = ['#BE123C', '#1e40af', '#059669', '#F59E0B', '#9333EA', '#0D9488'];
+  const colors = ['#8B1538', '#1e40af', '#059669', '#D4AF37', '#9333EA', '#0D9488'];
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       <div>
-        <h1 className="text-3xl font-bold text-maroon">Reports & Analytics</h1>
-        <p className="text-slate">Live performance insights for the last 30 days.</p>
+        <h1 className="text-3xl font-bold text-slate-800 dark:text-white">Reports & Analytics</h1>
+        <p className="text-slate-600 dark:text-slate-400">Live performance insights for the last 30 days.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="card">
-          <h2 className="text-lg font-bold text-maroon mb-4">Revenue Trend</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Revenue Trend</h2>
           <ResponsiveContainer width="100%" height={280}>
             <AreaChart data={data.revenueByDay}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="_id" hide />
-              <YAxis />
-              <Tooltip />
-              <Area type="monotone" dataKey="revenue" stroke="#BE123C" fill="#FECACA" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="_id" stroke="#666" />
+              <YAxis stroke="#666" />
+              <Tooltip
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
+              />
+              <Area type="monotone" dataKey="revenue" stroke="#8B1538" fill="#FECACA" />
             </AreaChart>
           </ResponsiveContainer>
         </div>
 
-        <div className="card">
-          <h2 className="text-lg font-bold text-maroon mb-4">Order Status</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Order Status</h2>
           <ResponsiveContainer width="100%" height={280}>
             <BarChart data={orderStatusData}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="status" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="count">
+              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <XAxis dataKey="status" stroke="#666" />
+              <YAxis stroke="#666" />
+              <Tooltip
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
+              />
+              <Bar dataKey="count" radius={[8, 8, 0, 0]}>
                 {orderStatusData.map((entry, index) => (
                   <Cell key={entry.status} fill={colors[index % colors.length]} />
                 ))}
@@ -86,8 +90,8 @@ const AdminReports = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="card lg:col-span-2">
-          <h2 className="text-lg font-bold text-maroon mb-4">Products by Category</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6 lg:col-span-2">
+          <h2 className="text-lg font-bold text-slate-800 dark:text-white mb-4">Products by Category</h2>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
               <Pie
@@ -101,7 +105,9 @@ const AdminReports = () => {
                   <Cell key={entry.name} fill={colors[index % colors.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>
