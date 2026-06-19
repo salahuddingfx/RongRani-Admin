@@ -69,45 +69,45 @@ const AdminDashboard = () => {
   return (
     <div className="p-6">
       {error && (
-        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg">
+        <div className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-xl">
           <p className="font-bold">Error Loading Dashboard</p>
           <p className="text-sm">{error}</p>
           <p className="text-sm mt-2">Make sure the backend server is running on port 5000</p>
         </div>
       )}
 
-      <h1 className="text-3xl font-bold text-maroon mb-8">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold text-slate-800 dark:text-white mb-8">Admin Dashboard</h1>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        <div className="card bg-maroon text-white">
+        <div className="bg-maroon text-white rounded-2xl p-5 md:p-6 shadow-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-cream opacity-90 text-sm font-semibold mb-1">Total Users</p>
+              <p className="text-white/80 text-sm font-semibold mb-1">Total Users</p>
               <h3 className="text-3xl sm:text-4xl font-bold">{stats.totalUsers || 0}</h3>
-              <p className="text-cream-light text-sm mt-2">Active customer base</p>
+              <p className="text-white/70 text-sm mt-2">Active customer base</p>
             </div>
             <Users className="h-10 w-10 sm:h-12 sm:w-12 opacity-30" />
           </div>
         </div>
 
-        <div className="card bg-emerald-600 text-white">
+        <div className="bg-emerald-600 text-white rounded-2xl p-5 md:p-6 shadow-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-emerald-100 opacity-90 text-sm font-semibold mb-1">Total Orders</p>
+              <p className="text-white/80 text-sm font-semibold mb-1">Total Orders</p>
               <h3 className="text-3xl sm:text-4xl font-bold">{stats.totalOrders || 0}</h3>
-              <p className="text-emerald-200 text-sm mt-2">Latest orders in pipeline</p>
+              <p className="text-white/70 text-sm mt-2">Latest orders in pipeline</p>
             </div>
             <ShoppingBag className="h-10 w-10 sm:h-12 sm:w-12 opacity-30" />
           </div>
         </div>
 
-        <div className="card bg-amber-600 text-white">
+        <div className="bg-amber-500 text-white rounded-2xl p-5 md:p-6 shadow-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-amber-100 opacity-90 text-sm font-semibold mb-1">Total Products</p>
+              <p className="text-white/80 text-sm font-semibold mb-1">Total Products</p>
               <h3 className="text-3xl sm:text-4xl font-bold">{stats.totalProducts || 0}</h3>
-              <p className="text-amber-200 text-sm mt-2">
+              <p className="text-white/70 text-sm mt-2">
                 {stats.lowStockProducts?.length || 0} low stock items
               </p>
             </div>
@@ -115,12 +115,12 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        <div className="card bg-purple-600 text-white">
+        <div className="bg-blue-600 text-white rounded-2xl p-5 md:p-6 shadow-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-purple-100 opacity-90 text-sm font-semibold mb-1">Total Revenue</p>
+              <p className="text-white/80 text-sm font-semibold mb-1">Total Revenue</p>
               <h3 className="text-3xl sm:text-4xl font-bold">৳{(stats.totalRevenue || 0).toLocaleString()}</h3>
-              <p className="text-purple-200 text-sm mt-2 flex items-center">
+              <p className="text-white/70 text-sm mt-2 flex items-center">
                 <TrendingUp className="h-4 w-4 mr-1" />
                 Last 30 days paid revenue
               </p>
@@ -131,50 +131,50 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="card mb-8">
-        <h2 className="text-xl font-bold text-maroon mb-6 flex items-center">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6 mb-8">
+        <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
           <BarChart3 className="mr-2 h-6 w-6" />
           Quick Actions
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           <Link
             to="/admin/products"
-            className="flex items-center space-x-3 p-5 bg-maroon/10 hover:bg-maroon/20 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-maroon/20 hover:border-maroon/40"
+            className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-600"
           >
-            <Package className="h-8 w-8 text-maroon" />
-            <span className="font-bold text-charcoal">Manage Products</span>
+            <Package className="h-6 w-6 text-maroon" />
+            <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">Manage Products</span>
           </Link>
 
           <Link
             to="/admin/sales"
-            className="flex items-center space-x-3 p-5 bg-emerald-100 hover:bg-emerald-200 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-emerald-200 hover:border-emerald-300"
+            className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-600"
           >
-            <BarChart3 className="h-8 w-8 text-emerald-600" />
-            <span className="font-bold text-charcoal">View Sales</span>
+            <BarChart3 className="h-6 w-6 text-emerald-600" />
+            <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">View Sales</span>
           </Link>
 
           <Link
             to="/admin/coupons"
-            className="flex items-center space-x-3 p-5 bg-amber-100 hover:bg-amber-200 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-amber-200 hover:border-amber-300"
+            className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-600"
           >
-            <Ticket className="h-8 w-8 text-amber-600" />
-            <span className="font-bold text-charcoal">Manage Coupons</span>
+            <Ticket className="h-6 w-6 text-amber-500" />
+            <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">Manage Coupons</span>
           </Link>
 
           <Link
             to="/admin/orders"
-            className="flex items-center space-x-3 p-5 bg-purple-100 hover:bg-purple-200 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-purple-200 hover:border-purple-300"
+            className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-600"
           >
-            <ShoppingBag className="h-8 w-8 text-purple-600" />
-            <span className="font-bold text-charcoal">View Orders</span>
+            <ShoppingBag className="h-6 w-6 text-blue-600" />
+            <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">View Orders</span>
           </Link>
 
           <Link
             to="/admin/flash-sale"
-            className="flex items-center space-x-3 p-5 bg-pink-100 hover:bg-pink-200 rounded-xl transition-all duration-300 shadow-soft hover:shadow-medium border-2 border-pink-200 hover:border-pink-300"
+            className="flex items-center space-x-3 p-4 bg-slate-50 dark:bg-slate-700/50 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-xl transition-colors border border-slate-200 dark:border-slate-600"
           >
-            <Zap className="h-8 w-8 text-pink-600" />
-            <span className="font-bold text-charcoal">Flash Sales</span>
+            <Zap className="h-6 w-6 text-purple-600" />
+            <span className="font-semibold text-slate-700 dark:text-slate-300 text-sm">Flash Sales</span>
           </Link>
         </div>
       </div>
@@ -182,8 +182,8 @@ const AdminDashboard = () => {
       {/* Analytics Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 mb-8">
         {/* Revenue & Orders Chart */}
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-6 flex items-center">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
             <TrendingUp className="mr-2 h-6 w-6" />
             Revenue & Orders Trend
           </h2>
@@ -199,7 +199,7 @@ const AdminDashboard = () => {
               <XAxis dataKey="name" stroke="#666" />
               <YAxis stroke="#666" />
               <Tooltip
-                contentStyle={{ backgroundColor: 'white', border: '1px solid #8B1538', borderRadius: '8px' }}
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
                 labelStyle={{ color: '#8B1538', fontWeight: 'bold' }}
               />
               <Legend />
@@ -209,8 +209,8 @@ const AdminDashboard = () => {
         </div>
 
         {/* Category Distribution */}
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-6 flex items-center">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
             <Package className="mr-2 h-6 w-6" />
             Products by Category
           </h2>
@@ -231,15 +231,15 @@ const AdminDashboard = () => {
                 ))}
               </Pie>
               <Tooltip
-                contentStyle={{ backgroundColor: 'white', border: '1px solid #8B1538', borderRadius: '8px' }}
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
               />
             </PieChart>
           </ResponsiveContainer>
         </div>
 
         {/* Order Status */}
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-6 flex items-center">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
             <ShoppingBag className="mr-2 h-6 w-6" />
             Order Status Distribution
           </h2>
@@ -249,7 +249,7 @@ const AdminDashboard = () => {
               <XAxis dataKey="status" stroke="#666" />
               <YAxis stroke="#666" />
               <Tooltip
-                contentStyle={{ backgroundColor: 'white', border: '1px solid #8B1538', borderRadius: '8px' }}
+                contentStyle={{ backgroundColor: 'white', border: '1px solid #e2e8f0', borderRadius: '12px' }}
                 labelStyle={{ color: '#8B1538', fontWeight: 'bold' }}
               />
               <Bar dataKey="count" fill="#8B1538" radius={[8, 8, 0, 0]}>
@@ -262,39 +262,32 @@ const AdminDashboard = () => {
         </div>
 
         {/* Top Products */}
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-6 flex items-center">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-6 flex items-center">
             <TrendingUp className="mr-2 h-6 w-6" />
             Top Selling Products
           </h2>
           {topProducts.length > 0 ? (
-            <div className="space-y-4">
+            <div className="space-y-3">
               {topProducts.map((product, idx) => (
-                <div key={product._id || idx} className="flex items-center justify-between p-4 bg-cream-light rounded-lg hover:shadow-md transition-all">
+                <div key={product._id || idx} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
                   <div className="flex items-center space-x-3">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${idx === 0 ? 'bg-gold/20 text-gold' :
-                      idx === 1 ? 'bg-slate/20 text-slate' :
-                        idx === 2 ? 'bg-amber-500/20 text-amber-600' :
-                          'bg-slate/10 text-slate'
-                      }`}>
-                      <span className="font-black text-lg">#{idx + 1}</span>
+                    <div className="w-10 h-10 rounded-full bg-maroon/10 flex items-center justify-center">
+                      <span className="font-bold text-maroon text-sm">#{idx + 1}</span>
                     </div>
                     <div>
-                      <p className="font-bold text-charcoal">{product.name}</p>
-                      <p className="text-sm text-slate">{product.sales || 0} sales</p>
+                      <p className="font-semibold text-slate-800 dark:text-white">{product.name}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{product.sales || 0} sales</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-maroon">৳{(product.revenue || 0).toLocaleString()}</p>
-                    <div className="flex items-center space-x-1 text-xs font-semibold text-slate">
-                      <span>Updated</span>
-                    </div>
+                    <p className="font-bold text-slate-800 dark:text-white">৳{(product.revenue || 0).toLocaleString()}</p>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-slate">
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
               <p>No top selling products yet</p>
             </div>
           )}
@@ -303,47 +296,47 @@ const AdminDashboard = () => {
 
       {/* Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-4">Recent Orders</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4">Recent Orders</h2>
           {recentOrders.length > 0 ? (
             <div className="space-y-3">
               {recentOrders.map((order) => (
-                <div key={order._id} className="flex items-center justify-between p-4 bg-cream-light rounded-lg hover:shadow-medium transition-shadow">
+                <div key={order._id} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
                   <div>
-                    <p className="font-semibold text-charcoal">Order #{order._id?.slice(-6)}</p>
-                    <p className="text-sm text-slate">
+                    <p className="font-semibold text-slate-800 dark:text-white">Order #{order._id?.slice(-6)}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
                       {order.createdAt ? new Date(order.createdAt).toLocaleString() : 'Just now'}
                     </p>
                   </div>
-                  <span className="font-bold text-maroon">৳{(order.total || 0).toLocaleString()}</span>
+                  <span className="font-bold text-slate-800 dark:text-white">৳{(order.total || 0).toLocaleString()}</span>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="text-center py-8 text-slate">
+            <div className="text-center py-8 text-slate-500 dark:text-slate-400">
               <p>No recent orders yet</p>
             </div>
           )}
         </div>
 
-        <div className="card">
-          <h2 className="text-xl font-bold text-maroon mb-4">Low Stock Alert</h2>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
+          <h2 className="text-xl font-bold text-slate-800 dark:text-white mb-4">Low Stock Alert</h2>
           <div className="space-y-3">
             {stats.lowStockProducts && stats.lowStockProducts.length > 0 ? (
               stats.lowStockProducts.map((product, idx) => (
                 <Link
                   key={idx}
                   to={`/admin/products`}
-                  className="flex items-center justify-between p-4 bg-red-50 rounded-lg hover:shadow-medium transition-shadow"
+                  className="flex items-center justify-between p-4 bg-red-50 dark:bg-red-900/20 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors"
                 >
-                  <p className="font-semibold text-charcoal">{product.name}</p>
-                  <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-bold">
+                  <p className="font-semibold text-slate-800 dark:text-white">{product.name}</p>
+                  <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-lg text-sm font-bold">
                     {product.stock} left
                   </span>
                 </Link>
               ))
             ) : (
-              <div className="text-center py-8 text-slate">
+              <div className="text-center py-8 text-slate-500 dark:text-slate-400">
                 <p>All products are well stocked</p>
               </div>
             )}
