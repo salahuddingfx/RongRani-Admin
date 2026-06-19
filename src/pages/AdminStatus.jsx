@@ -32,11 +32,11 @@ const AdminStatus = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="p-6 space-y-6">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-maroon">System Status</h1>
-          <p className="text-slate">Quick health snapshot of API, database, and socket.</p>
+          <h1 className="text-3xl font-bold text-slate-800 dark:text-white">System Status</h1>
+          <p className="text-slate-600 dark:text-slate-400">Quick health snapshot of API, database, and socket.</p>
         </div>
         <button
           onClick={fetchHealth}
@@ -48,54 +48,54 @@ const AdminStatus = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="card">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
           <div className="flex items-center gap-3">
             <Activity className="h-6 w-6 text-emerald-600" />
             <div>
-              <p className="text-sm text-slate">API Status</p>
-              <p className="text-xl font-bold text-charcoal">
+              <p className="text-sm text-slate-500 dark:text-slate-400">API Status</p>
+              <p className="text-xl font-bold text-slate-800 dark:text-white">
                 {health?.status === 'ok' ? 'Healthy' : 'Unknown'}
               </p>
             </div>
           </div>
-          <p className="text-xs text-slate mt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
             Uptime: {health ? Math.floor(health.uptime || 0) : 0}s
           </p>
         </div>
 
-        <div className="card">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
           <div className="flex items-center gap-3">
             <Database className="h-6 w-6 text-blue-600" />
             <div>
-              <p className="text-sm text-slate">Database</p>
-              <p className="text-xl font-bold text-charcoal">
+              <p className="text-sm text-slate-500 dark:text-slate-400">Database</p>
+              <p className="text-xl font-bold text-slate-800 dark:text-white">
                 {health?.db?.state || 'unknown'}
               </p>
             </div>
           </div>
-          <p className="text-xs text-slate mt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
             Last check: {health?.timestamp ? new Date(health.timestamp).toLocaleString() : 'N/A'}
           </p>
         </div>
 
-        <div className="card">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6">
           <div className="flex items-center gap-3">
             <Wifi className={`h-6 w-6 ${connected ? 'text-emerald-600' : 'text-red-600'}`} />
             <div>
-              <p className="text-sm text-slate">Socket</p>
-              <p className="text-xl font-bold text-charcoal">
+              <p className="text-sm text-slate-500 dark:text-slate-400">Socket</p>
+              <p className="text-xl font-bold text-slate-800 dark:text-white">
                 {connected ? 'Connected' : 'Disconnected'}
               </p>
             </div>
           </div>
-          <p className="text-xs text-slate mt-4">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-4">
             Real-time events: {connected ? 'Live' : 'Offline'}
           </p>
         </div>
       </div>
 
       {!health && (
-        <div className="card text-center text-slate">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 md:p-6 text-center text-slate-500 dark:text-slate-400">
           Unable to load health data. Check API connectivity.
         </div>
       )}
