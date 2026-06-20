@@ -29,12 +29,10 @@ const AdminProducts = () => {
     seoDescription: ''
   });
 
-  // Track storage metadata for uploaded images
   const [imageMetadata, setImageMetadata] = useState([]);
 
   const getImageCount = () => {
     if (!formData.images) return 0;
-    // Split by comma OR newline, then filter out empty entries
     return formData.images.split(/[,\n]/).filter(url => url.trim().length > 0).length;
   };
 
@@ -52,7 +50,6 @@ const AdminProducts = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Check file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast.error('Image size should be less than 5MB');
       return;
@@ -75,7 +72,6 @@ const AdminProducts = () => {
 
       const { url, publicId } = response.data;
 
-      // Store metadata for this URL
       if (publicId) {
         setImageMetadata(prev => [...prev, { url, publicId }]);
       }
@@ -212,10 +208,8 @@ const AdminProducts = () => {
         toast.error('At least one image URL is required');
         return;
       }
-      // Helper to convert Google Drive links to direct links
       const processImageUrl = (url) => {
         let trimmed = url.trim();
-        // Handle GDrive file links
         if (trimmed.includes('drive.google.com')) {
           const fileIdMatch = trimmed.match(/\/file\/d\/([^\/]+)/) || trimmed.match(/id=([^\&]+)/);
           if (fileIdMatch && fileIdMatch[1]) {
@@ -230,7 +224,6 @@ const AdminProducts = () => {
         .map(img => processImageUrl(img))
         .filter(Boolean);
 
-      // Merge metadata with URLs
       const finalImages = imagesArray.map(url => {
         const meta = imageMetadata.find(m => m.url === url);
         return meta ? { url: meta.url, publicId: meta.publicId } : { url };
@@ -300,7 +293,6 @@ const AdminProducts = () => {
       seoDescription: product.seoDescription || ''
     });
 
-    // Initialize metadata for existing images
     const existingMeta = (product.images || [])
       .filter(img => typeof img === 'object' && img.publicId)
       .map(img => ({ url: img.url, publicId: img.publicId }));
@@ -354,14 +346,14 @@ const AdminProducts = () => {
 
       {/* Search Bar */}
       <div className="mb-8 flex flex-col md:flex-row gap-4 items-end">
-        <div className="relative flex-1 group">
-          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate group-focus-within:text-maroon transition-colors" />
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
           <input
             type="text"
             placeholder="Search products by name or category..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="input-field pl-12 w-full transition-all focus:ring-4 focus:ring-maroon/10"
+            className="input-field pl-12 w-full"
           />
         </div>
         <div className="text-sm text-slate-500 font-medium px-2 py-1 bg-slate-100 rounded-lg">
@@ -370,30 +362,30 @@ const AdminProducts = () => {
       </div>
 
       {/* Products Table */}
-      <div className="card overflow-hidden">
+      <div className="bg-white border border-slate-100 rounded-2xl shadow-card overflow-hidden">
         <div className="overflow-x-auto custom-scrollbar pb-2">
           <table className="w-full min-w-[800px]">
-            <thead className="bg-maroon text-white">
+            <thead className="bg-slate-50 dark:bg-slate-700/50">
               <tr>
-                <th className="px-6 py-4 text-left">Image</th>
-                <th className="px-6 py-4 text-left">Name</th>
-                <th className="px-6 py-4 text-left">Category</th>
-                <th className="px-6 py-4 text-left">Price</th>
-                <th className="px-6 py-4 text-left">Stock</th>
-                <th className="px-6 py-4 text-center">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600">Image</th>
+                <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600">Name</th>
+                <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600">Category</th>
+                <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600">Price</th>
+                <th className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600">Stock</th>
+                <th className="px-6 py-4 text-center text-xs font-bold uppercase tracking-wider text-slate-600">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate/20">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {filteredProducts.map((product) => (
-                <tr key={product._id} className="hover:bg-cream-light transition-colors">
+                <tr key={product._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                   <td className="px-6 py-4">
                     <img
                       src={getImageUrl(product.images?.[0]) || 'https://via.placeholder.com/100'}
                       alt={product.name}
-                      className="h-16 w-16 object-cover rounded-lg shadow-soft"
+                      className="h-16 w-16 object-cover rounded-lg border border-slate-200"
                     />
                   </td>
-                  <td className="px-6 py-4 font-semibold text-charcoal">
+                  <td className="px-6 py-4 font-semibold text-slate-800">
                     <div className="flex flex-col">
                       <span>{product.name}</span>
                       <span className="text-[10px] text-slate-500">SKU: {product.sku || '—'}</span>
@@ -427,13 +419,13 @@ const AdminProducts = () => {
                       </span>
                       <input
                         type="number"
-                        className="w-20 px-3 py-2 border border-slate/20 rounded-lg text-sm"
+                        className="w-20 px-3 py-2 border border-slate-200 rounded-lg text-sm"
                         value={stockDrafts[product._id] ?? product.stock}
                         onChange={(e) => handleStockChange(product._id, e.target.value)}
                       />
                       <button
                         onClick={() => handleStockUpdate(product)}
-                        className="px-3 py-2 bg-maroon text-white rounded-lg text-xs font-semibold hover:bg-maroon-light"
+                        className="px-3 py-2 bg-maroon text-white rounded-lg text-xs font-semibold hover:bg-maroon/90 transition-colors"
                       >
                         Update
                       </button>
@@ -464,14 +456,14 @@ const AdminProducts = () => {
 
       {/* Add Product Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-md flex items-center justify-center z-[100] p-4 animate-scale-in">
-          <div className="bg-white rounded-[2.5rem] w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl border border-white/20 flex flex-col">
-            <div className="flex justify-between items-center bg-maroon p-6 md:p-8 shrink-0">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-elevated border border-slate-200 dark:border-slate-700 flex flex-col">
+            <div className="flex justify-between items-center bg-maroon p-6 rounded-t-2xl shrink-0">
               <div className="flex items-center space-x-3 text-white">
                 <div className="bg-white/20 p-2 rounded-xl">
                   <Plus className="h-6 w-6" />
                 </div>
-                <h2 className="text-2xl font-black">
+                <h2 className="text-2xl font-bold">
                   {editingProduct ? 'Edit Product' : 'Add New Product'}
                 </h2>
               </div>
@@ -480,7 +472,7 @@ const AdminProducts = () => {
                   setShowAddModal(false);
                   setEditingProduct(null);
                 }}
-                className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition-all hover:rotate-90"
+                className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-lg transition-colors"
               >
                 <X className="h-6 w-6" />
               </button>
@@ -488,7 +480,7 @@ const AdminProducts = () => {
             <div className="p-8 overflow-y-auto custom-scrollbar flex-1">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-slate mb-2">Product Name</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Product Name</label>
                   <input
                     type="text"
                     required
@@ -499,7 +491,7 @@ const AdminProducts = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate mb-2">SKU</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">SKU</label>
                   <input
                     type="text"
                     value={formData.sku}
@@ -510,7 +502,7 @@ const AdminProducts = () => {
                   <p className="text-[10px] text-slate-400 mt-1">Optional but recommended for inventory tracking</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-slate mb-2">Description</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Description</label>
                   <textarea
                     required
                     value={formData.description}
@@ -524,7 +516,7 @@ const AdminProducts = () => {
                 {/* Price & Stock Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-slate mb-2">Original Price (Main)</label>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">Original Price (Main)</label>
                     <input
                       type="number"
                       value={formData.originalPrice}
@@ -535,7 +527,7 @@ const AdminProducts = () => {
                     <p className="text-[10px] text-slate-400 mt-1">Leave blank if same as selling price</p>
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate mb-2 flex justify-between">
+                    <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between">
                       <span>Selling Price</span>
                       {getDiscountPercentage() > 0 && (
                         <span className="text-xs font-bold text-green-600 bg-green-50 px-2 py-0.5 rounded-full">
@@ -553,7 +545,7 @@ const AdminProducts = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-slate mb-2">Stock Inventory</label>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">Stock Inventory</label>
                     <input
                       type="number"
                       required
@@ -566,7 +558,7 @@ const AdminProducts = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate mb-2">Category</label>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">Category</label>
                   <select
                     required
                     value={formData.category}
@@ -583,7 +575,7 @@ const AdminProducts = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-slate mb-2 flex justify-between items-center text-maroon">
+                  <label className="block text-sm font-semibold text-slate-700 mb-2 flex justify-between items-center text-maroon">
                     <div className="flex items-center gap-2">
                       <ImageIcon className="h-4 w-4" />
                       <span>Product Images (URLs or Upload)</span>
@@ -598,7 +590,7 @@ const AdminProducts = () => {
                       required
                       value={formData.images}
                       onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                      className="input-field w-full font-mono text-xs focus:h-40 transition-all duration-300 pr-10"
+                      className="input-field w-full font-mono text-xs pr-10"
                       rows="4"
                       placeholder={`https://example.com/image1.jpg\nhttps://example.com/image2.jpg`}
                     />
@@ -626,14 +618,14 @@ const AdminProducts = () => {
                       type="button"
                       onClick={() => fileInputRef.current?.click()}
                       disabled={isUploading}
-                      className="flex items-center gap-2 px-4 py-2 bg-maroon text-white hover:bg-maroon/90 rounded-xl text-sm font-bold transition-all disabled:opacity-50 shadow-md active:scale-95"
+                      className="flex items-center gap-2 px-4 py-2 bg-maroon text-white hover:bg-maroon/90 rounded-xl text-sm font-bold transition-colors disabled:opacity-50"
                     >
                       {isUploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
                       {isUploading ? 'Direct Upload' : 'Upload From Device'}
                     </button>
                     <div className="flex-1 flex justify-between items-center min-w-0">
                       <p className="text-[10px] text-slate-400 font-medium truncate">
-<Pin className="w-3 h-3 inline-block mr-1" /> Paste URLs OR use Upload to store image in MongoDB
+                        <Pin className="w-3 h-3 inline-block mr-1" /> Paste URLs OR use Upload to store image in MongoDB
                       </p>
                     </div>
                   </div>
@@ -647,7 +639,6 @@ const AdminProducts = () => {
                       </p>
                       <div className="flex flex-wrap gap-3">
                         {formData.images.split(/[,\n]/).filter(u => u.trim()).map((url, idx) => {
-                          // Process for preview (handle GDrive etc)
                           let displayUrl = url.trim();
                           if (displayUrl.includes('drive.google.com')) {
                             const fileIdMatch = displayUrl.match(/\/file\/d\/([^\/]+)/) || displayUrl.match(/id=([^\&]+)/);
@@ -657,11 +648,11 @@ const AdminProducts = () => {
                           }
 
                           return (
-                            <div key={idx} className="relative group h-20 w-20 flex-shrink-0 animate-in fade-in zoom-in duration-300">
+                            <div key={idx} className="relative group h-20 w-20 flex-shrink-0">
                               <img
                                 src={getImageUrl(displayUrl)}
                                 alt={`Preview ${idx + 1}`}
-                                className={`h-full w-full object-cover rounded-xl border-2 transition-all ${idx === 0 ? 'border-maroon ring-2 ring-maroon/20' : 'border-white'} shadow-sm group-hover:shadow-md`}
+                                className={`h-full w-full object-cover rounded-xl border-2 transition-all ${idx === 0 ? 'border-maroon ring-2 ring-maroon/20' : 'border-white'} shadow-sm`}
                                 onError={(e) => {
                                   e.target.src = 'https://via.placeholder.com/150?text=Invalid';
                                   e.target.className += ' grayscale';
@@ -677,7 +668,7 @@ const AdminProducts = () => {
                                   urls.splice(idx, 1);
                                   setFormData({ ...formData, images: urls.join('\n') });
                                 }}
-                                className="absolute -top-2 -right-2 bg-white text-red-500 p-1 rounded-full shadow-lg border border-red-100 opacity-0 group-hover:opacity-100 transition-all hover:scale-110 active:scale-95"
+                                className="absolute -top-2 -right-2 bg-white text-red-500 p-1 rounded-full shadow-lg border border-red-100 opacity-0 group-hover:opacity-100 transition-all"
                               >
                                 <X className="h-3 w-3" />
                               </button>
@@ -746,7 +737,7 @@ const AdminProducts = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4 sticky bottom-0 bg-white py-4 border-t border-slate-100 mt-6">
+                <div className="flex flex-col sm:flex-row gap-4 pt-4 sticky bottom-0 bg-white dark:bg-slate-800 py-4 border-t border-slate-100 dark:border-slate-700 mt-6">
                   <button type="submit" className="btn-primary flex-1 py-4 text-lg">
                     {editingProduct ? 'Update Product' : 'Create Product'}
                   </button>
@@ -764,9 +755,9 @@ const AdminProducts = () => {
               </form>
             </div>
           </div>
-        </div >
+        </div>
       )}
-    </div >
+    </div>
   );
 };
 
