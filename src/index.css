@@ -60,46 +60,57 @@
   }
 }
 
-/* Dark mode overrides */
+/* Dark mode overrides - using raw CSS to avoid @apply circular deps */
 .dark .bg-white {
-  @apply bg-slate-800 !important;
+  background-color: #1e293b !important;
 }
 
-.dark .border-slate-100,
+.dark .border-slate-100 {
+  border-color: #334155 !important;
+}
+
 .dark .border-slate-200 {
-  @apply border-slate-700 !important;
+  border-color: #334155 !important;
 }
 
 .dark .text-slate-800 {
-  @apply text-slate-100 !important;
+  color: #f1f5f9 !important;
 }
 
 .dark .text-slate-600 {
-  @apply text-slate-400 !important;
+  color: #94a3b8 !important;
 }
 
 .dark .text-slate-500 {
-  @apply text-slate-400 !important;
+  color: #94a3b8 !important;
 }
 
 .dark .text-slate-400 {
-  @apply text-slate-500 !important;
+  color: #64748b !important;
 }
 
 .dark .bg-slate-50 {
-  @apply bg-slate-900 !important;
+  background-color: #0f172a !important;
 }
 
 .dark .bg-slate-100 {
-  @apply bg-slate-800 !important;
+  background-color: #1e293b !important;
 }
 
 .dark .hover\:bg-slate-50:hover {
-  @apply bg-slate-800 !important;
+  background-color: #1e293b !important;
 }
 
 .dark .hover\:bg-slate-100:hover {
-  @apply bg-slate-700 !important;
+  background-color: #334155 !important;
+}
+
+.dark .divide-slate-100 > * + * {
+  border-color: #334155 !important;
+}
+
+.dark .divide-slate-200 > * + * {
+  border-color: #334155 !important;
 }
 
 /* Mobile performance */
