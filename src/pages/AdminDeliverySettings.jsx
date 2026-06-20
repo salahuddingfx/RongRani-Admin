@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { Building2, Globe, Gift } from 'lucide-react';
+import { Truck, MapPin, Gift } from 'lucide-react';
 
 const AdminDeliverySettings = () => {
   const [loading, setLoading] = useState(true);
@@ -68,54 +68,71 @@ const AdminDeliverySettings = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="p-4 md:p-6 space-y-5">
       <div>
-        <h1 className="text-3xl font-bold text-maroon">Delivery Settings</h1>
-        <p className="text-slate">Manage shipping fees and free delivery rules.</p>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+          <Truck className="h-6 w-6 text-maroon" />
+          Delivery Settings
+        </h1>
+        <p className="text-slate-500 text-sm mt-1">Manage shipping fees and free delivery rules.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="card space-y-6 max-w-2xl">
-        <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-4">
-          <label className="block text-sm font-bold text-blue-900 mb-1 flex items-center gap-1"><Building2 className="w-4 h-4 inline-block" /> Inside Cox's Bazar City Delivery Fee (BDT)</label>
-          <p className="text-xs text-blue-800 mb-3">Apply this fee for deliveries within Cox's Bazar City</p>
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 space-y-5 max-w-2xl">
+        <div className="bg-blue-50 dark:bg-blue-500/10 border border-blue-200 dark:border-blue-500/20 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-blue-800 dark:text-blue-300 mb-1 flex items-center gap-1.5">
+            <MapPin className="w-4 h-4" />
+            Inside Cox's Bazar City Delivery Fee (BDT)
+          </label>
+          <p className="text-xs text-blue-600/70 dark:text-blue-400/70 mb-3">Apply this fee for deliveries within Cox's Bazar City</p>
           <input
             name="chittagongFee"
             type="number"
             value={formData.chittagongFee}
             onChange={handleChange}
-            className="input-field w-full text-lg font-bold"
+            className="w-full px-3 py-2 border border-blue-200 dark:border-blue-500/20 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-400"
             min="0"
             placeholder="e.g., 70"
           />
         </div>
-        <div className="bg-green-50 border-2 border-green-200 rounded-xl p-4">
-          <label className="block text-sm font-bold text-green-900 mb-1 flex items-center gap-1"><Globe className="w-4 h-4 inline-block" /> Outside Cox's Bazar City Delivery Fee (BDT)</label>
-          <p className="text-xs text-green-800 mb-3">Apply this fee for deliveries to all other districts/areas</p>
+
+        <div className="bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-emerald-800 dark:text-emerald-300 mb-1 flex items-center gap-1.5">
+            <Truck className="w-4 h-4" />
+            Outside Cox's Bazar City Delivery Fee (BDT)
+          </label>
+          <p className="text-xs text-emerald-600/70 dark:text-emerald-400/70 mb-3">Apply this fee for deliveries to all other districts/areas</p>
           <input
             name="outsideChittagongFee"
             type="number"
             value={formData.outsideChittagongFee}
             onChange={handleChange}
-            className="input-field w-full text-lg font-bold"
+            className="w-full px-3 py-2 border border-emerald-200 dark:border-emerald-500/20 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-400"
             min="0"
             placeholder="e.g., 150"
           />
         </div>
-        <div className="bg-gold/20 border-2 border-gold/50 rounded-xl p-4">
-          <label className="block text-sm font-bold text-amber-900 mb-1 flex items-center gap-1"><Gift className="w-4 h-4 inline-block" /> Free Shipping Threshold (BDT)</label>
-          <p className="text-xs text-amber-800 mb-3">Orders above this amount get FREE shipping (both regions)</p>
+
+        <div className="bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 rounded-xl p-4">
+          <label className="block text-sm font-semibold text-amber-800 dark:text-amber-300 mb-1 flex items-center gap-1.5">
+            <Gift className="w-4 h-4" />
+            Free Shipping Threshold (BDT)
+          </label>
+          <p className="text-xs text-amber-600/70 dark:text-amber-400/70 mb-3">Orders above this amount get FREE shipping (both regions)</p>
           <input
             name="freeShippingThreshold"
             type="number"
             value={formData.freeShippingThreshold}
             onChange={handleChange}
-            className="input-field w-full text-lg font-bold"
+            className="w-full px-3 py-2 border border-amber-200 dark:border-amber-500/20 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400"
             min="0"
             placeholder="e.g., 2500"
           />
         </div>
-        <div className="flex justify-end">
-          <button type="submit" className="btn-primary">Save Settings</button>
+
+        <div className="flex justify-end pt-2">
+          <button type="submit" className="px-5 py-2.5 bg-maroon text-white rounded-lg font-medium text-sm hover:bg-maroon/90 transition-colors">
+            Save Settings
+          </button>
         </div>
       </form>
     </div>
