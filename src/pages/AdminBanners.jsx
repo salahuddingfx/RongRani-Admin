@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Image as ImageIcon, Plus, Edit, Trash2, Eye, EyeOff, Upload, X, Sparkles, Loader2, Check, Link2 } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminBanners = () => {
   const [banners, setBanners] = useState([]);

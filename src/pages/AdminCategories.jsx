@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Plus, Edit, Trash2, X, Package, Eye, EyeOff, Search, Star, Upload, Loader2, Image as ImageIcon } from 'lucide-react';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [editingCategory, setEditingCategory] = useState(null);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const [searchTerm, setSearchTerm] = useState('');
   const [formData, setFormData] = useState({
     name: '',
@@ -142,18 +144,26 @@ const AdminCategories = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this category?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/categories/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('Category deleted successfully');
-      fetchCategories();
-    } catch {
-      toast.error('Failed to delete category');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Category?',
+      message: 'Are you sure you want to delete this category?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/categories/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('Category deleted successfully');
+          fetchCategories();
+        } catch {
+          toast.error('Failed to delete category');
+        }
+      }
+    });
   };
 
   const toggleActive = async (category) => {
@@ -563,6 +573,15 @@ const AdminCategories = () => {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

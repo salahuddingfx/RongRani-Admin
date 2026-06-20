@@ -3,12 +3,14 @@ import { Ticket, Plus, Trash2, Edit, Search, X } from 'lucide-react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminCoupons = () => {
   const [coupons, setCoupons] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingCoupon, setEditingCoupon] = useState(null);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const { socket } = useSocket() || {};
   const [formData, setFormData] = useState({
     code: '',
@@ -121,18 +123,26 @@ const AdminCoupons = () => {
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this coupon?')) return;
-    
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/coupons/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('Coupon deleted successfully');
-      fetchCoupons();
-    } catch {
-      toast.error('Failed to delete coupon');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Coupon?',
+      message: 'Are you sure you want to delete this coupon?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/admin/coupons/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('Coupon deleted successfully');
+          fetchCoupons();
+        } catch {
+          toast.error('Failed to delete coupon');
+        }
+      }
+    });
   };
 
   if (loading) {
@@ -402,6 +412,15 @@ const AdminCoupons = () => {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };
