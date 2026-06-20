@@ -172,10 +172,7 @@ const AdminBanners = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-maroon mx-auto mb-4"></div>
-          <p className="text-slate font-medium">Loading banners...</p>
-        </div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
       </div>
     );
   }
@@ -183,12 +180,10 @@ const AdminBanners = () => {
   return (
     <div className="p-4 md:p-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
         <div>
-          <h1 className="text-4xl font-black text-maroon mb-2">
-            Banner Management
-          </h1>
-          <p className="text-slate text-lg">Manage homepage banner slides and promotions</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Banner Management</h1>
+          <p className="text-slate-500 text-sm mt-1">Manage homepage banner slides and promotions</p>
         </div>
         <button
           onClick={() => {
@@ -196,49 +191,55 @@ const AdminBanners = () => {
             setFormData({ title: '', subtitle: '', link: '', image: '', isActive: true, order: 0 });
             setShowModal(true);
           }}
-          className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center justify-center space-x-2 w-full sm:w-auto"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-maroon text-white rounded-lg font-medium text-sm hover:bg-maroon/90 transition-colors"
         >
-          <Plus className="h-5 w-5" />
-          <span>Add New Banner</span>
+          <Plus className="h-4 w-4" />
+          Add New Banner
         </button>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="bg-maroon text-white p-6 rounded-2xl shadow-lg">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white/80 text-sm font-semibold mb-1">Total Banners</p>
-              <h3 className="text-4xl font-black">{banners.length}</h3>
+              <p className="text-slate-500 text-sm">Total Banners</p>
+              <h3 className="text-2xl font-bold text-slate-800 dark:text-white mt-1">{banners.length}</h3>
             </div>
-            <ImageIcon className="h-12 w-12 opacity-30" />
+            <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl">
+              <ImageIcon className="h-5 w-5 text-slate-500" />
+            </div>
           </div>
         </div>
-        <div className="bg-green-600 text-white p-6 rounded-2xl shadow-lg">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white/80 text-sm font-semibold mb-1">Active</p>
-              <h3 className="text-4xl font-black">{banners.filter(b => b.isActive).length}</h3>
+              <p className="text-slate-500 text-sm">Active</p>
+              <h3 className="text-2xl font-bold text-emerald-600 mt-1">{banners.filter(b => b.isActive).length}</h3>
             </div>
-            <Eye className="h-12 w-12 opacity-30" />
+            <div className="p-3 bg-emerald-50 dark:bg-emerald-500/10 rounded-xl">
+              <Eye className="h-5 w-5 text-emerald-600" />
+            </div>
           </div>
         </div>
-        <div className="bg-slate-600 text-white p-6 rounded-2xl shadow-lg">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-white/80 text-sm font-semibold mb-1">Inactive</p>
-              <h3 className="text-4xl font-black">{banners.filter(b => !b.isActive).length}</h3>
+              <p className="text-slate-500 text-sm">Inactive</p>
+              <h3 className="text-2xl font-bold text-slate-400 mt-1">{banners.filter(b => !b.isActive).length}</h3>
             </div>
-            <EyeOff className="h-12 w-12 opacity-30" />
+            <div className="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl">
+              <EyeOff className="h-5 w-5 text-slate-400" />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Banners Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {banners.map((banner) => (
-          <div key={banner._id} className="bg-white rounded-2xl shadow-xl overflow-hidden border border-maroon/10 hover:shadow-2xl transition-all">
-            <div className="relative h-48 bg-cream">
+          <div key={banner._id} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card overflow-hidden">
+            <div className="relative h-44 bg-slate-100 dark:bg-slate-700">
               {banner.image ? (
                 <img
                   src={typeof banner.image === 'string' ? banner.image : banner.image.url}
@@ -247,49 +248,53 @@ const AdminBanners = () => {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <ImageIcon className="h-16 w-16 text-slate/30" />
+                  <ImageIcon className="h-10 w-10 text-slate-300" />
                 </div>
               )}
-              <div className={`absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold ${banner.isActive
-                ? 'bg-green-500 text-white'
-                : 'bg-slate-500 text-white'
-                }`}>
-                {banner.isActive ? <span className="flex items-center gap-1"><Check className="w-3 h-3" /> Active</span> : <span className="flex items-center gap-1"><X className="w-3 h-3" /> Inactive</span>}
+              <div className={`absolute top-3 right-3 px-2 py-0.5 rounded-full text-xs font-medium ${
+                banner.isActive
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-slate-400 text-white'
+              }`}>
+                {banner.isActive ? 'Active' : 'Inactive'}
               </div>
             </div>
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-maroon mb-2">{banner.title}</h3>
+            <div className="p-4">
+              <h3 className="font-semibold text-slate-800 dark:text-white mb-1">{banner.title}</h3>
               {banner.subtitle && (
-                <p className="text-sm text-slate mb-4">{banner.subtitle}</p>
+                <p className="text-sm text-slate-500 mb-3">{banner.subtitle}</p>
               )}
               {banner.link && (
-                <p className="text-xs text-blue-600 mb-4 truncate flex items-center gap-1"><Link2 className="w-3 h-3 inline-block" /> {banner.link}</p>
+                <p className="text-xs text-blue-500 mb-3 truncate flex items-center gap-1">
+                  <Link2 className="w-3 h-3" /> {banner.link}
+                </p>
               )}
               <div className="flex items-center justify-between">
-                <span className="text-xs font-bold text-slate bg-cream px-3 py-1 rounded-full">
+                <span className="text-xs text-slate-400 bg-slate-50 dark:bg-slate-700 px-2 py-0.5 rounded">
                   Order: {banner.order}
                 </span>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center gap-1">
                   <button
                     onClick={() => toggleActive(banner._id, banner.isActive)}
-                    className={`p-2 rounded-lg transition-colors ${banner.isActive
-                      ? 'bg-slate-100 hover:bg-slate-200 text-slate'
-                      : 'bg-green-100 hover:bg-green-200 text-green-600'
-                      }`}
+                    className={`p-1.5 rounded-lg transition-colors ${
+                      banner.isActive
+                        ? 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500'
+                        : 'hover:bg-emerald-50 dark:hover:bg-emerald-500/10 text-emerald-600'
+                    }`}
                     title={banner.isActive ? 'Deactivate' : 'Activate'}
                   >
                     {banner.isActive ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                   <button
                     onClick={() => handleEdit(banner)}
-                    className="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600 transition-colors"
+                    className="p-1.5 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-500/10 text-blue-500 transition-colors"
                     title="Edit"
                   >
                     <Edit className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(banner._id)}
-                    className="bg-red-500 text-white p-2 rounded-lg hover:bg-red-600 transition-colors"
+                    className="p-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10 text-red-500 transition-colors"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -302,17 +307,17 @@ const AdminBanners = () => {
       </div>
 
       {banners.length === 0 && (
-        <div className="text-center py-16 bg-white rounded-2xl shadow-xl border-2 border-dashed border-maroon/20">
-          <ImageIcon className="h-24 w-24 text-slate/30 mx-auto mb-4" />
-          <h3 className="text-2xl font-bold text-maroon mb-2">No Banners Yet</h3>
-          <p className="text-slate mb-8 max-w-md mx-auto">Create your first banner to display on the homepage, or import our premium templates to get started quickly.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-12 text-center">
+          <ImageIcon className="h-12 w-12 text-slate-300 mx-auto mb-3" />
+          <h3 className="text-lg font-semibold text-slate-800 dark:text-white mb-1">No Banners Yet</h3>
+          <p className="text-slate-500 text-sm mb-6 max-w-md mx-auto">Create your first banner to display on the homepage, or import templates to get started quickly.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <button
               onClick={() => setShowModal(true)}
-              className="bg-maroon text-white px-8 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all inline-flex items-center space-x-2 w-full sm:w-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-maroon text-white rounded-lg font-medium text-sm hover:bg-maroon/90 transition-colors"
             >
-              <Plus className="h-5 w-5" />
-              <span>Create Custom Banner</span>
+              <Plus className="h-4 w-4" />
+              Create Custom Banner
             </button>
             <button
               onClick={async () => {
@@ -360,10 +365,10 @@ const AdminBanners = () => {
                   console.error(err);
                 }
               }}
-              className="bg-teal-600 text-white px-8 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all inline-flex items-center space-x-2 w-full sm:w-auto"
+              className="inline-flex items-center gap-2 px-4 py-2 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 rounded-lg font-medium text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
             >
-              <Sparkles className="h-5 w-5 text-yellow-300" />
-              <span>Import Templates</span>
+              <Sparkles className="h-4 w-4" />
+              Import Templates
             </button>
           </div>
         </div>
@@ -371,66 +376,66 @@ const AdminBanners = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="bg-maroon text-white p-6 flex items-center justify-between">
-              <h2 className="text-2xl font-black">
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevated max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-center p-5 border-b border-slate-100 dark:border-slate-700">
+              <h2 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editingBanner ? 'Edit Banner' : 'Create New Banner'}
               </h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="hover:bg-white/20 rounded-full p-2 transition-colors"
+                className="p-1.5 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors"
               >
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 text-slate-400" />
               </button>
             </div>
 
-            <form onSubmit={handleSubmit} className="p-6 space-y-6">
+            <form onSubmit={handleSubmit} className="p-5 space-y-4">
               <div>
-                <label className="block text-sm font-bold text-maroon mb-2">Banner Title *</label>
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Banner Title *</label>
                 <input
                   type="text"
                   value={formData.title}
                   onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
                   required
                   placeholder="e.g., Valentine's Day Special"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-maroon mb-2">Subtitle</label>
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Subtitle</label>
                 <input
                   type="text"
                   value={formData.subtitle}
                   onChange={(e) => setFormData({ ...formData, subtitle: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
                   placeholder="e.g., Up to 50% off on selected items"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-maroon mb-2">Image URL *</label>
-                <div className="space-y-4">
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Image URL *</label>
+                <div className="space-y-3">
                   <div className="flex flex-col sm:flex-row gap-2">
                     <input
                       type="text"
                       value={formData.image}
                       onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                      className="flex-1 px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate w-full"
+                      className="flex-1 px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
                       required
                       placeholder="https://example.com/banner-image.jpg"
                     />
-                    <div className="flex gap-2 w-full sm:w-auto">
+                    <div className="flex gap-2">
                       <button
                         type="button"
                         onClick={() => {
                           const randomId = Math.floor(Math.random() * 1000);
                           setFormData({ ...formData, image: `https://picsum.photos/seed/${randomId}/1200/600` });
                         }}
-                        className="bg-slate-100 text-slate-700 px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-slate-200 transition-colors flex-1 sm:flex-none text-center"
+                        className="px-3 py-2 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 rounded-lg text-xs font-medium hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors whitespace-nowrap"
                       >
-                        Random URL
+                        Random
                       </button>
                       <input
                         type="file"
@@ -443,17 +448,16 @@ const AdminBanners = () => {
                         type="button"
                         onClick={() => fileInputRef.current?.click()}
                         disabled={isUploading}
-                        className="bg-maroon text-white px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap hover:bg-maroon/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2 flex-1 sm:flex-none"
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-maroon text-white rounded-lg text-xs font-medium hover:bg-maroon/90 transition-colors disabled:opacity-50 whitespace-nowrap"
                       >
                         {isUploading ? <Loader2 className="h-3 w-3 animate-spin" /> : <Upload className="h-3 w-3" />}
-                        {isUploading ? 'Uploading...' : 'Direct Upload'}
+                        {isUploading ? 'Uploading...' : 'Upload'}
                       </button>
                     </div>
                   </div>
 
-                  {/* Image Preview */}
                   {formData.image && (
-                    <div className="relative h-40 w-full rounded-2xl overflow-hidden border-2 border-maroon/10 bg-cream group">
+                    <div className="relative h-36 w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-700 group">
                       <img
                         src={formData.image.includes('drive.google.com')
                           ? formData.image.replace(/\/file\/d\/([^\/]+)\/view.*/, 'https://drive.google.com/uc?export=view&id=$1')
@@ -465,65 +469,62 @@ const AdminBanners = () => {
                           e.target.src = 'https://via.placeholder.com/800x400?text=Invalid+Image+URL';
                         }}
                       />
-                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button
-                          type="button"
-                          onClick={() => { setFormData({ ...formData, image: '' }); setImageMetadata(null); }}
-                          className="bg-red-500 p-2 rounded-full text-white hover:bg-red-600 transition-all hover:scale-110"
-                        >
-                          <X className="h-6 w-6" />
-                        </button>
-                      </div>
+                      <button
+                        type="button"
+                        onClick={() => { setFormData({ ...formData, image: '' }); setImageMetadata(null); }}
+                        className="absolute top-2 right-2 p-1.5 bg-red-500 text-white rounded-lg opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                      >
+                        <X className="h-4 w-4" />
+                      </button>
                     </div>
                   )}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-maroon mb-2">Link URL</label>
+                <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Link URL</label>
                 <input
                   type="text"
                   value={formData.link}
                   onChange={(e) => setFormData({ ...formData, link: e.target.value })}
-                  className="w-full px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
                   placeholder="/shop?category=Valentine"
                 />
               </div>
 
-              <div className="flex items-center space-x-6">
+              <div className="flex items-center gap-4">
                 <div className="flex-1">
-                  <label className="block text-sm font-bold text-maroon mb-2">Display Order</label>
+                  <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Display Order</label>
                   <input
                     type="number"
                     value={formData.order}
                     onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) })}
-                    className="w-full px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+                    className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
                     min="0"
                   />
                 </div>
-
-                <div className="flex items-center space-x-3">
-                  <label className="text-sm font-bold text-maroon">Active</label>
+                <div className="flex items-center gap-2 pt-6">
                   <input
                     type="checkbox"
                     checked={formData.isActive}
                     onChange={(e) => setFormData({ ...formData, isActive: e.target.checked })}
-                    className="w-6 h-6 text-maroon rounded focus:ring-maroon"
+                    className="h-4 w-4 text-maroon rounded border-slate-300 focus:ring-maroon"
                   />
+                  <label className="text-sm font-medium text-slate-600 dark:text-slate-400">Active</label>
                 </div>
               </div>
 
-              <div className="flex items-center space-x-4 pt-4">
+              <div className="flex gap-3 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 bg-maroon text-white py-4 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all"
+                  className="flex-1 px-4 py-2.5 bg-maroon text-white rounded-lg font-medium text-sm hover:bg-maroon/90 transition-colors"
                 >
                   {editingBanner ? 'Update Banner' : 'Create Banner'}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}
-                  className="flex-1 bg-slate-200 text-slate py-4 rounded-xl font-bold hover:bg-slate-300 transition-colors"
+                  className="flex-1 px-4 py-2.5 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-400 rounded-lg font-medium text-sm hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                 >
                   Cancel
                 </button>
