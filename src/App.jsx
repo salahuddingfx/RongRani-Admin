@@ -58,23 +58,49 @@ function App() {
                   <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
                     <Toaster
                       position="top-right"
+                      gutter={10}
                       toastOptions={{
-                        duration: 3000,
+                        duration: 3500,
                         style: {
-                          background: '#363636',
-                          color: '#fff',
+                          background: '#fff',
+                          color: '#1e293b',
+                          borderRadius: '12px',
+                          border: '1px solid #e2e8f0',
+                          padding: '12px 16px',
+                          fontSize: '14px',
+                          fontWeight: 500,
+                          boxShadow: '0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1)',
+                          maxWidth: '420px',
                         },
                         success: {
                           duration: 3000,
+                          style: {
+                            border: '1px solid #bbf7d0',
+                            background: '#f0fdf4',
+                          },
                           iconTheme: {
-                            primary: '#C9A86A',
+                            primary: '#16a34a',
                             secondary: '#fff',
                           },
                         },
                         error: {
-                          duration: 4000,
+                          duration: 4500,
+                          style: {
+                            border: '1px solid #fecaca',
+                            background: '#fef2f2',
+                          },
                           iconTheme: {
-                            primary: '#FF0000',
+                            primary: '#dc2626',
+                            secondary: '#fff',
+                          },
+                        },
+                        loading: {
+                          style: {
+                            border: '1px solid #e0e7ff',
+                            background: '#eef2ff',
+                          },
+                          iconTheme: {
+                            primary: '#7c3aed',
                             secondary: '#fff',
                           },
                         },
