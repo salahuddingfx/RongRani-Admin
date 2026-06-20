@@ -44,6 +44,7 @@ const AdminStatus = lazy(() => import('./pages/AdminStatus'));
 const AdminAI = lazy(() => import('./pages/AdminAI'));
 const AdminFlashSale = lazy(() => import('./pages/AdminFlashSale'));
 const AdminAnalytics = lazy(() => import('./pages/AdminAnalytics'));
+const AdminGiftCards = lazy(() => import('./pages/AdminGiftCards'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 function App() {
@@ -154,6 +155,7 @@ function App() {
                           <Route path="ai" element={<AdminAI />} />
                           <Route path="flash-sale" element={<AdminFlashSale />} />
                           <Route path="analytics" element={<AdminAnalytics />} />
+                          <Route path="gift-cards" element={<AdminGiftCards />} />
                         </Route>
 
                         {/* 404 Route */}

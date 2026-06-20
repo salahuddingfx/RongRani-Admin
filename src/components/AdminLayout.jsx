@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, LogOut, Home, ChevronRight, BarChart3, TrendingUp, Users, Package, ShoppingBag, Folder, Zap, Bot, Ticket, Megaphone, Flame, Star, Truck, ClipboardList, Compass } from 'lucide-react';
+import { Menu, X, LogOut, Home, ChevronRight, BarChart3, TrendingUp, Users, Package, ShoppingBag, Folder, Zap, Bot, Ticket, Megaphone, Flame, Star, Truck, ClipboardList, Compass, Gift } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import ScrollRevealManager from './ScrollRevealManager';
 
@@ -24,6 +24,7 @@ const AdminLayout = () => {
     { path: '/admin/products', label: 'Products', icon: <ShoppingBag className="w-4 h-4" /> },
     { path: '/admin/categories', label: 'Categories', icon: <Folder className="w-4 h-4" /> },
     { path: '/admin/coupons', label: 'Coupons', icon: <Ticket className="w-4 h-4" /> },
+    { path: '/admin/gift-cards', label: 'Gift Cards', icon: <Gift className="w-4 h-4" /> },
     { path: '/admin/banners', label: 'Banners', icon: <Megaphone className="w-4 h-4" /> },
     { path: '/admin/hot-offer', label: 'Hot Offer', icon: <Flame className="w-4 h-4" /> },
     { path: '/admin/flash-sale', label: 'Flash Sale', icon: <Zap className="w-4 h-4" /> },
