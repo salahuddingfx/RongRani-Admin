@@ -459,10 +459,13 @@ const AdminBanners = () => {
                   {formData.image && (
                     <div className="relative h-36 w-full rounded-lg overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-700 group">
                       <img
-                        src={formData.image.includes('drive.google.com')
-                          ? formData.image.replace(/\/file\/d\/([^\/]+)\/view.*/, 'https://drive.google.com/uc?export=view&id=$1')
-                          : formData.image
-                        }
+                        src={(() => {
+                          const imgUrl = typeof formData.image === 'object' ? (formData.image.url || '') : formData.image;
+                          if (!imgUrl) return '';
+                          return imgUrl.includes('drive.google.com')
+                            ? imgUrl.replace(/\/file\/d\/([^\/]+)\/view.*/, 'https://drive.google.com/uc?export=view&id=$1')
+                            : imgUrl;
+                        })()}
                         alt="Preview"
                         className="w-full h-full object-cover"
                         onError={(e) => {
