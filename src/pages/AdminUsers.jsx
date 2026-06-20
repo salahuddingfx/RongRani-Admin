@@ -3,6 +3,7 @@ import { Users, Search, UserPlus, Shield, Mail, Phone, MapPin, Calendar, Edit, T
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -18,6 +19,7 @@ const AdminUsers = () => {
     role: 'customer'
   });
   const [savingUser, setSavingUser] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const { socket } = useSocket() || {};
 
   useEffect(() => {
@@ -55,19 +57,27 @@ const AdminUsers = () => {
   };
 
   const handleDeleteUser = async (userId) => {
-    if (!window.confirm('Are you sure you want to delete this user?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/users/${userId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('User deleted successfully');
-      fetchUsers();
-    } catch (error) {
-      const message = error?.response?.data?.message || 'Failed to delete user';
-      toast.error(message);
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete User?',
+      message: 'Are you sure you want to delete this user?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/admin/users/${userId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('User deleted successfully');
+          fetchUsers();
+        } catch (error) {
+          const message = error?.response?.data?.message || 'Failed to delete user';
+          toast.error(message);
+        }
+      }
+    });
   };
 
   const handleRoleChange = async (userId, newRole) => {
@@ -413,6 +423,15 @@ const AdminUsers = () => {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

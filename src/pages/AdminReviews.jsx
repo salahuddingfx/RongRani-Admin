@@ -60,17 +60,26 @@ const AdminReviews = () => {
   };
 
   const handleDelete = async (reviewId) => {
-    if (!window.confirm('Delete this review?')) return;
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/reviews/${reviewId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      toast.success('Review deleted');
-      fetchReviews(statusFilter);
-    } catch {
-      toast.error('Failed to delete review');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Review?',
+      message: 'Delete this review?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/admin/reviews/${reviewId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          toast.success('Review deleted');
+          fetchReviews(statusFilter);
+        } catch {
+          toast.error('Failed to delete review');
+        }
+      }
+    });
   };
 
   if (loading) {
@@ -184,6 +193,15 @@ const AdminReviews = () => {
           <p className="text-slate-500 font-medium">No reviews found for this filter.</p>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

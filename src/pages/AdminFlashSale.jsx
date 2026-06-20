@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Zap, Plus, Trash2, Calendar, Search, Save, X } from 'lucide-react';
 import toast from 'react-hot-toast';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminFlashSale = () => {
     const [flashSales, setFlashSales] = useState([]);
@@ -18,6 +19,7 @@ const AdminFlashSale = () => {
         products: []
     });
 
+    const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [selectedProduct, setSelectedProduct] = useState(null);
@@ -168,17 +170,26 @@ const AdminFlashSale = () => {
     };
 
     const handleDelete = async (id) => {
-        if (!window.confirm('Are you sure you want to delete this flash sale?')) return;
-        try {
-            const token = localStorage.getItem('token');
-            await axios.delete(`/api/flash-sales/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            toast.success('Flash Sale Deleted');
-            fetchFlashSales();
-        } catch (_) {
-            toast.error('Failed to delete');
-        }
+        setConfirmDialog({
+            isOpen: true,
+            title: 'Delete Flash Sale?',
+            message: 'Are you sure you want to delete this flash sale?',
+            type: 'danger',
+            confirmText: 'Delete',
+            onConfirm: async () => {
+                setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+                try {
+                    const token = localStorage.getItem('token');
+                    await axios.delete(`/api/flash-sales/${id}`, {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    toast.success('Flash Sale Deleted');
+                    fetchFlashSales();
+                } catch (_) {
+                    toast.error('Failed to delete');
+                }
+            }
+        });
     };
 
     const toggleStatus = async (sale) => {
@@ -524,6 +535,15 @@ const AdminFlashSale = () => {
                     <p className="text-sm text-slate-400 mt-1">Create one to boost your sales!</p>
                 </div>
             )}
+            <ConfirmDialog
+                isOpen={confirmDialog.isOpen}
+                title={confirmDialog.title}
+                message={confirmDialog.message}
+                type={confirmDialog.type}
+                confirmText={confirmDialog.confirmText}
+                onConfirm={confirmDialog.onConfirm}
+                onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+            />
         </div>
     );
 };

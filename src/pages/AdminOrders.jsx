@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
 import CourierDetailsModal from '../components/CourierDetailsModal';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -54,6 +55,7 @@ const AdminOrders = () => {
     invoice: '',
     note: '',
   });
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const { socket } = useSocket() || {};
 
   const fetchOrders = useCallback(async () => {

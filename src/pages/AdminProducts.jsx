@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import axios from 'axios';
 import { useSocket } from '../contexts/socketContextBase';
 import { getImageUrl } from '../utils/productUtils';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 
 const AdminProducts = () => {
@@ -14,6 +15,7 @@ const AdminProducts = () => {
   const [stockDrafts, setStockDrafts] = useState({});
   const [editingProduct, setEditingProduct] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const { socket } = useSocket() || {};
   const [formData, setFormData] = useState({
     name: '',
@@ -158,18 +160,26 @@ const AdminProducts = () => {
   }, [socket, fetchCategories]);
 
   const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this product?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/products/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('Product deleted successfully');
-      fetchProducts();
-    } catch {
-      toast.error('Failed to delete product');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Product?',
+      message: 'Are you sure you want to delete this product?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/products/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('Product deleted successfully');
+          fetchProducts();
+        } catch {
+          toast.error('Failed to delete product');
+        }
+      }
+    });
   };
 
   const handleStockChange = (id, value) => {
@@ -757,6 +767,15 @@ const AdminProducts = () => {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };
