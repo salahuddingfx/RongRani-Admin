@@ -80,16 +80,16 @@ const AdminReviews = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="p-4 md:p-6 space-y-5">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-maroon">Reviews Moderation</h1>
-          <p className="text-slate">Approve or reject customer reviews.</p>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Reviews Moderation</h1>
+          <p className="text-slate-500 text-sm mt-1">Approve or reject customer reviews.</p>
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="input-field w-full md:w-64"
+          className="px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon w-full md:w-56"
         >
           <option value="all">All statuses</option>
           <option value="pending">Pending</option>
@@ -98,74 +98,74 @@ const AdminReviews = () => {
         </select>
       </div>
 
-      <div className="card overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[850px]">
-            <thead className="bg-maroon text-white">
+          <table className="w-full min-w-[800px]">
+            <thead className="bg-slate-50 dark:bg-slate-700/50">
               <tr>
-                <th className="px-6 py-4 text-left">Product</th>
-                <th className="px-6 py-4 text-left">Reviewer</th>
-                <th className="px-6 py-4 text-left">Rating</th>
-                <th className="px-6 py-4 text-left">Status</th>
-                <th className="px-6 py-4 text-left">Comment</th>
-                <th className="px-6 py-4 text-center">Actions</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Product</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Reviewer</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Rating</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+                <th className="px-5 py-3 text-left text-xs font-semibold text-slate-500 uppercase tracking-wider">Comment</th>
+                <th className="px-5 py-3 text-center text-xs font-semibold text-slate-500 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate/10">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {reviews.map((review) => (
-                <tr key={review._id} className="hover:bg-cream-light/50">
-                  <td className="px-6 py-4 font-semibold text-charcoal">
+                <tr key={review._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
+                  <td className="px-5 py-3.5 font-medium text-sm text-slate-800 dark:text-white">
                     {review.product?.name || 'Unknown'}
                   </td>
-                  <td className="px-6 py-4 text-slate">
+                  <td className="px-5 py-3.5 text-sm text-slate-500">
                     {review.user?.name || review.guestName || 'Guest'}
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-1 text-amber-500">
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center gap-0.5 text-amber-400">
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`h-4 w-4 ${i < review.rating ? 'fill-current' : 'text-slate-300'}`}
+                          className={`h-3.5 w-3.5 ${i < review.rating ? 'fill-current' : 'text-slate-200 dark:text-slate-600'}`}
                         />
                       ))}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  <td className="px-5 py-3.5">
+                    <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
                       review.status === 'approved'
-                        ? 'bg-emerald-100 text-emerald-700'
+                        ? 'bg-emerald-50 text-emerald-600'
                         : review.status === 'rejected'
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-amber-100 text-amber-700'
+                        ? 'bg-red-50 text-red-600'
+                        : 'bg-amber-50 text-amber-600'
                     }`}>
                       {review.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-slate max-w-xs">
+                  <td className="px-5 py-3.5 text-sm text-slate-500 max-w-xs">
                     <p className="line-clamp-2">{review.comment || review.title || '-'}</p>
                   </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center justify-center gap-2">
+                  <td className="px-5 py-3.5">
+                    <div className="flex items-center justify-center gap-1.5">
                       <button
                         onClick={() => updateStatus(review._id, 'approved')}
-                        className="p-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-600"
+                        className="p-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-600 transition-colors"
                         title="Approve"
                       >
-                        <CheckCircle className="h-5 w-5" />
+                        <CheckCircle className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => updateStatus(review._id, 'rejected')}
-                        className="p-2 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600"
+                        className="p-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-600 transition-colors"
                         title="Reject"
                       >
-                        <XCircle className="h-5 w-5" />
+                        <XCircle className="h-4 w-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(review._id)}
-                        className="p-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600"
+                        className="p-1.5 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 transition-colors"
                         title="Delete"
                       >
-                        <Trash2 className="h-5 w-5" />
+                        <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
                   </td>
@@ -177,8 +177,9 @@ const AdminReviews = () => {
       </div>
 
       {reviews.length === 0 && (
-        <div className="card text-center text-slate">
-          No reviews found for this filter.
+        <div className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-12 text-center">
+          <Star className="h-10 w-10 text-slate-300 mx-auto mb-3" />
+          <p className="text-slate-500 font-medium">No reviews found for this filter.</p>
         </div>
       )}
     </div>
