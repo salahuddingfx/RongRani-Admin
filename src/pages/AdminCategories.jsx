@@ -238,9 +238,9 @@ const AdminCategories = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-900 p-4 md:p-6">
+    <div className="p-4 md:p-6">
       {/* Header */}
-      <div className="bg-maroon rounded-2xl shadow-2xl p-8 mb-8">
+      <div className="bg-maroon rounded-2xl p-6 mb-8 text-white">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
             <h1 className="text-4xl font-bold text-white mb-2">Categories Management</h1>
@@ -248,7 +248,7 @@ const AdminCategories = () => {
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="bg-white text-maroon hover:bg-white/90 px-6 py-3 rounded-xl font-bold text-lg flex items-center justify-center space-x-2 shadow-xl hover:shadow-2xl transition-all transform hover:scale-105 w-full md:w-auto"
+            className="bg-white text-maroon hover:bg-white/90 px-6 py-3 rounded-xl font-bold text-lg flex items-center justify-center space-x-2 transition-colors w-full md:w-auto"
           >
             <Plus className="h-6 w-6" />
             <span>Add Category</span>
@@ -257,7 +257,7 @@ const AdminCategories = () => {
       </div>
 
       {/* Search Bar */}
-      <div className="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4 mb-8 border border-slate-700">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 mb-8 border border-slate-100 dark:border-slate-700 shadow-card">
         <div className="relative">
           <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
           <input
@@ -265,7 +265,7 @@ const AdminCategories = () => {
             placeholder="Search categories..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-12 pr-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent"
+            className="w-full pl-12 pr-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon focus:border-transparent"
           />
         </div>
       </div>
@@ -273,61 +273,62 @@ const AdminCategories = () => {
       {/* Categories Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredCategories.map((category) => (
-          <div key={category._id} className="group bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-slate-700 hover:border-maroon transition-all hover:shadow-2xl hover:shadow-maroon/20 transform hover:-translate-y-1">
+          <div key={category._id} className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-700 shadow-card">
             <div className={`${category.color} p-6 relative overflow-hidden`}>
-              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-all"></div>
               <div className="relative z-10">
                 <div className="flex justify-between items-start mb-4">
-                  <div className="bg-white/20 backdrop-blur-md w-16 h-16 rounded-2xl flex items-center justify-center shadow-xl">
+                  <div className="bg-white/20 w-16 h-16 rounded-2xl flex items-center justify-center">
                     <Package className="h-8 w-8 text-white" />
                   </div>
-                  <button
-                    onClick={() => toggleActive(category)}
-                    className={`p-2 ${category.isActive ? 'bg-green-500/30' : 'bg-red-500/30'} hover:bg-white/30 rounded-xl transition-all backdrop-blur-md`}
-                  >
-                    {category.isActive ? (
-                      <Eye className="h-5 w-5 text-white" />
-                    ) : (
-                      <EyeOff className="h-5 w-5 text-white" />
-                    )}
-                  </button>
-                  <button
-                    onClick={() => toggleShowOnHome(category)}
-                    className={`p-2 ${category.showOnHome ? 'bg-amber-500/50' : 'bg-slate-500/30'} hover:bg-white/30 rounded-xl transition-all backdrop-blur-md ml-2`}
-                    title={category.showOnHome ? 'Remove from Home Slider' : 'Show as Home Slider'}
-                  >
-                    <Star className={`h-5 w-5 text-white ${category.showOnHome ? 'fill-current' : ''}`} />
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => toggleActive(category)}
+                      className={`p-2 ${category.isActive ? 'bg-green-500/30' : 'bg-red-500/30'} hover:bg-white/30 rounded-xl transition-colors`}
+                    >
+                      {category.isActive ? (
+                        <Eye className="h-5 w-5 text-white" />
+                      ) : (
+                        <EyeOff className="h-5 w-5 text-white" />
+                      )}
+                    </button>
+                    <button
+                      onClick={() => toggleShowOnHome(category)}
+                      className={`p-2 ${category.showOnHome ? 'bg-amber-500/50' : 'bg-slate-500/30'} hover:bg-white/30 rounded-xl transition-colors`}
+                      title={category.showOnHome ? 'Remove from Home Slider' : 'Show as Home Slider'}
+                    >
+                      <Star className={`h-5 w-5 text-white ${category.showOnHome ? 'fill-current' : ''}`} />
+                    </button>
+                  </div>
                 </div>
-                <h3 className="text-2xl font-bold text-white mb-2 group-hover:scale-105 transition-transform">{category.name}</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">{category.name}</h3>
                 <p className="text-white/80 text-sm line-clamp-2">{category.description}</p>
               </div>
             </div>
-            <div className="p-5 bg-slate-800/80">
-              <div className="flex justify-between items-center text-sm text-slate-300 mb-4">
+            <div className="p-5">
+              <div className="flex justify-between items-center text-sm text-slate mb-4">
                 <div className="flex items-center space-x-4">
-                  <span className="bg-slate-700 px-3 py-1 rounded-lg">
-                    <strong className="text-white">{category.productCount || 0}</strong> Products
+                  <span className="bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-lg">
+                    <strong className="text-slate-900 dark:text-white">{category.productCount || 0}</strong> Products
                   </span>
-                  <span className="bg-slate-700 px-3 py-1 rounded-lg">
-                    <strong className="text-white">{category.orderCount || 0}</strong> Orders
+                  <span className="bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-lg">
+                    <strong className="text-slate-900 dark:text-white">{category.orderCount || 0}</strong> Orders
                   </span>
-                  <span className="bg-slate-700 px-3 py-1 rounded-lg">
-                    Sort: <strong className="text-white">{category.order}</strong>
+                  <span className="bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-lg">
+                    Sort: <strong className="text-slate-900 dark:text-white">{category.order}</strong>
                   </span>
                 </div>
               </div>
               <div className="flex space-x-2">
                 <button
                   onClick={() => handleEdit(category)}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-semibold transition-all flex items-center justify-center space-x-2 shadow-lg"
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-xl font-semibold transition-colors flex items-center justify-center space-x-2"
                 >
                   <Edit className="h-4 w-4" />
                   <span>Edit</span>
                 </button>
                 <button
                   onClick={() => handleDelete(category._id)}
-                  className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold transition-all flex items-center justify-center space-x-2 shadow-lg"
+                  className="flex-1 bg-red-600 hover:bg-red-700 text-white px-4 py-2.5 rounded-xl font-semibold transition-colors flex items-center justify-center space-x-2"
                 >
                   <Trash2 className="h-4 w-4" />
                   <span>Delete</span>
@@ -339,8 +340,8 @@ const AdminCategories = () => {
       </div>
 
       {filteredCategories.length === 0 && (
-        <div className="text-center py-20 bg-slate-800/30 rounded-2xl border border-slate-700 border-dashed">
-          <Package className="h-20 w-20 text-slate-600 mx-auto mb-4" />
+        <div className="text-center py-20 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 border-dashed">
+          <Package className="h-20 w-20 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-slate-400 mb-2">No categories found</h3>
           <p className="text-slate-500 mb-6">Create your first category to get started</p>
           <button
@@ -354,9 +355,9 @@ const AdminCategories = () => {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-          <div className="bg-slate-800 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-700">
-            <div className="sticky top-0 bg-maroon p-6 flex justify-between items-center rounded-t-3xl z-10">
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevated max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-slate-100 dark:border-slate-700">
+            <div className="sticky top-0 bg-maroon p-6 flex justify-between items-center rounded-t-2xl z-10">
               <h2 className="text-3xl font-bold text-white">
                 {editingCategory ? 'Edit Category' : 'Add New Category'}
               </h2>
@@ -367,7 +368,7 @@ const AdminCategories = () => {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
               <div>
-                <label className="block text-sm font-bold text-white mb-2">
+                <label className="block text-sm font-bold text-slate mb-2">
                   Category Name *
                 </label>
                 <input
@@ -375,14 +376,14 @@ const AdminCategories = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
                   required
                   placeholder="Enter category name"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-white mb-2">
+                <label className="block text-sm font-bold text-slate mb-2">
                   Slug
                 </label>
                 <input
@@ -390,7 +391,7 @@ const AdminCategories = () => {
                   name="slug"
                   value={formData.slug}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
                   required
                   placeholder="auto-generated-slug"
                 />
@@ -398,7 +399,7 @@ const AdminCategories = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-white mb-2">
+                <label className="block text-sm font-bold text-slate mb-2">
                   Description
                 </label>
                 <textarea
@@ -406,21 +407,21 @@ const AdminCategories = () => {
                   value={formData.description}
                   onChange={handleInputChange}
                   rows="3"
-                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
+                  className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon"
                   placeholder="Brief description..."
                 />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-white mb-2">
+                  <label className="block text-sm font-bold text-slate mb-2">
                     Icon
                   </label>
                   <select
                     name="icon"
                     value={formData.icon}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-maroon"
+                    className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate focus:outline-none focus:ring-2 focus:ring-maroon"
                   >
                     {iconOptions.map((icon) => (
                       <option key={icon} value={icon}>{icon}</option>
@@ -429,7 +430,7 @@ const AdminCategories = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-bold text-white mb-2">
+                  <label className="block text-sm font-bold text-slate mb-2">
                     Color Theme
                   </label>
                   <div className="relative">
@@ -437,7 +438,7 @@ const AdminCategories = () => {
                       name="color"
                       value={formData.color}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-maroon appearance-none"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate focus:outline-none focus:ring-2 focus:ring-maroon appearance-none"
                     >
                       {colorOptions.map((color) => (
                         <option key={color.value} value={color.value}>{color.name}</option>
@@ -453,7 +454,7 @@ const AdminCategories = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-bold text-white mb-2">
+                  <label className="block text-sm font-bold text-slate mb-2">
                     Display Order
                   </label>
                   <input
@@ -461,40 +462,40 @@ const AdminCategories = () => {
                     name="order"
                     value={formData.order}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-maroon"
+                    className="w-full px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate focus:outline-none focus:ring-2 focus:ring-maroon"
                     min="0"
                   />
                 </div>
 
                 <div className="flex items-end">
-                  <label className="flex items-center space-x-3 cursor-pointer bg-slate-700 px-4 py-3 rounded-xl w-full hover:bg-slate-600 transition-colors">
+                  <label className="flex items-center space-x-3 cursor-pointer bg-slate-100 dark:bg-slate-700 px-4 py-3 rounded-xl w-full hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <input
                       type="checkbox"
                       name="isActive"
                       checked={formData.isActive}
                       onChange={handleInputChange}
-                      className="w-5 h-5 text-maroon rounded focus:ring-maroon border-slate-600"
+                      className="w-5 h-5 text-maroon rounded focus:ring-maroon border-slate-300 dark:border-slate-600"
                     />
-                    <span className="text-sm font-bold text-white">Active Status</span>
+                    <span className="text-sm font-bold text-slate">Active Status</span>
                   </label>
                 </div>
 
                 <div className="flex items-end">
-                  <label className="flex items-center space-x-3 cursor-pointer bg-slate-700 px-4 py-3 rounded-xl w-full hover:bg-slate-600 transition-colors">
+                  <label className="flex items-center space-x-3 cursor-pointer bg-slate-100 dark:bg-slate-700 px-4 py-3 rounded-xl w-full hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors">
                     <input
                       type="checkbox"
                       name="showOnHome"
                       checked={formData.showOnHome}
                       onChange={handleInputChange}
-                      className="w-5 h-5 text-amber-500 rounded focus:ring-amber-500 border-slate-600"
+                      className="w-5 h-5 text-amber-500 rounded focus:ring-amber-500 border-slate-300 dark:border-slate-600"
                     />
-                    <span className="text-sm font-bold text-white">Show as Slider on Home</span>
+                    <span className="text-sm font-bold text-slate">Show as Slider on Home</span>
                   </label>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-white mb-2">Category Cover Image</label>
+                <label className="block text-sm font-bold text-slate mb-2">Category Cover Image</label>
                 <div className="space-y-4">
                   <div className="flex flex-col sm:flex-row gap-2">
                     <input
@@ -502,7 +503,7 @@ const AdminCategories = () => {
                       name="image"
                       value={typeof formData.image === 'string' ? formData.image : formData.image?.url || ''}
                       onChange={handleInputChange}
-                      className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon w-full"
+                      className="flex-1 px-4 py-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-xl text-slate placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-maroon w-full"
                       placeholder="https://example.com/category-image.jpg"
                     />
                     <div className="flex gap-2 w-full sm:w-auto">
@@ -526,7 +527,7 @@ const AdminCategories = () => {
                   </div>
 
                   {formData.image && (
-                    <div className="relative h-40 w-full rounded-2xl overflow-hidden border-2 border-slate-600 bg-slate-900 group">
+                    <div className="relative h-40 w-full rounded-2xl overflow-hidden border-2 border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-900 group">
                       <img
                         src={(typeof formData.image === 'string' ? formData.image : formData.image?.url || '').includes('drive.google.com')
                           ? (typeof formData.image === 'string' ? formData.image : formData.image?.url || '').replace(/\/file\/d\/([^\/]+)\/view.*/, 'https://drive.google.com/uc?export=view&id=$1')
@@ -551,10 +552,10 @@ const AdminCategories = () => {
               </div>
 
               <div className="flex space-x-4 pt-4">
-                <button type="button" onClick={resetForm} className="flex-1 bg-slate-700 hover:bg-slate-600 text-white px-6 py-3 rounded-xl font-bold transition-colors">
+                <button type="button" onClick={resetForm} className="flex-1 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate px-6 py-3 rounded-xl font-bold transition-colors">
                   Cancel
                 </button>
-                <button type="submit" className="flex-1 bg-maroon hover:bg-maroon/90 text-white px-6 py-3 rounded-xl font-bold transition-all shadow-lg">
+                <button type="submit" className="flex-1 bg-maroon hover:bg-maroon/90 text-white px-6 py-3 rounded-xl font-bold transition-colors">
                   {editingCategory ? 'Update Category' : 'Create Category'}
                 </button>
               </div>
