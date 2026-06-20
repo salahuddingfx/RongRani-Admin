@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
+import { Flame } from 'lucide-react';
 
 const AdminHotOffer = () => {
   const [loading, setLoading] = useState(true);
@@ -101,15 +102,17 @@ const AdminHotOffer = () => {
 
   return (
     <div className="p-4 md:p-6 space-y-6">
-      <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-maroon">Hot Offer</h1>
-          <p className="text-slate">Control the hero promo banner shown on Home.</p>
-        </div>
+      <div>
+        <h1 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+          <Flame className="h-6 w-6 text-maroon" />
+          Hot Offer
+        </h1>
+        <p className="text-slate-500 text-sm mt-1">Control the hero promo banner shown on Home.</p>
       </div>
 
+      {/* Preview */}
       <div
-        className="card overflow-hidden"
+        className="rounded-2xl overflow-hidden p-6"
         style={{ backgroundColor: formData.backgroundColor }}
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -120,7 +123,7 @@ const AdminHotOffer = () => {
             <h2 className="text-2xl md:text-3xl font-bold text-maroon mt-3">
               {formData.title || 'Add a headline for the offer'}
             </h2>
-            <p className="text-slate mt-2 max-w-xl">
+            <p className="text-slate-600 mt-2 max-w-xl">
               {formData.subtitle || 'Add a short message that highlights the offer value.'}
             </p>
           </div>
@@ -128,33 +131,34 @@ const AdminHotOffer = () => {
             <div className="text-2xl font-bold text-maroon">
               {formData.discountText || 'Limited time'}
             </div>
-            <div className="mt-3 inline-flex items-center px-4 py-2 bg-maroon text-white rounded-xl font-semibold">
+            <div className="mt-3 inline-flex items-center px-4 py-2 bg-maroon text-white rounded-lg font-semibold text-sm">
               {formData.ctaText || 'Shop Now'}
             </div>
           </div>
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="card space-y-4">
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Title</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Title</label>
             <input
               name="title"
               value={formData.title}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
               placeholder="Valentine Deal Special"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Subtitle</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Subtitle</label>
             <input
               name="subtitle"
               value={formData.subtitle}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
               placeholder="Up to 50% off on selected gifts"
             />
           </div>
@@ -162,32 +166,32 @@ const AdminHotOffer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Badge Text</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Badge Text</label>
             <input
               name="badgeText"
               value={formData.badgeText}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
               placeholder="Hot Offer"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Discount Text</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Discount Text</label>
             <input
               name="discountText"
               value={formData.discountText}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
               placeholder="Save up to 50%"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Background Color</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Background Color</label>
             <input
               name="backgroundColor"
               value={formData.backgroundColor}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
               placeholder="#FDE2E4"
             />
           </div>
@@ -195,33 +199,33 @@ const AdminHotOffer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">CTA Text</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">CTA Text</label>
             <input
               name="ctaText"
               value={formData.ctaText}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">CTA Link</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">CTA Link</label>
             <input
               name="ctaLink"
               value={formData.ctaLink}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
             />
           </div>
-          <div className="flex items-center gap-3 pt-7">
+          <div className="flex items-center gap-3 pt-6">
             <input
               id="hotOfferActive"
               name="isActive"
               type="checkbox"
               checked={formData.isActive}
               onChange={handleChange}
-              className="h-4 w-4 text-maroon"
+              className="h-4 w-4 text-maroon rounded border-slate-300 focus:ring-maroon"
             />
-            <label htmlFor="hotOfferActive" className="text-sm font-semibold text-slate">
+            <label htmlFor="hotOfferActive" className="text-sm font-medium text-slate-600 dark:text-slate-400">
               Active
             </label>
           </div>
@@ -229,29 +233,29 @@ const AdminHotOffer = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">Start Date</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">Start Date</label>
             <input
               name="startDate"
               type="date"
               value={formData.startDate}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-slate mb-1">End Date</label>
+            <label className="block text-sm font-medium text-slate-600 dark:text-slate-400 mb-1.5">End Date</label>
             <input
               name="endDate"
               type="date"
               value={formData.endDate}
               onChange={handleChange}
-              className="input-field w-full"
+              className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-700 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-maroon/20 focus:border-maroon"
             />
           </div>
         </div>
 
-        <div className="flex justify-end">
-          <button type="submit" className="btn-primary">
+        <div className="flex justify-end pt-2">
+          <button type="submit" className="px-5 py-2.5 bg-maroon text-white rounded-lg font-medium text-sm hover:bg-maroon/90 transition-colors">
             Save Offer
           </button>
         </div>
