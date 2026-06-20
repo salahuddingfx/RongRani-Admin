@@ -18,6 +18,7 @@ import {
     Legend,
     Filler
 } from 'chart.js';
+import AdminLoading from '../components/AdminLoading';
 
 ChartJS.register(
     CategoryScale,
@@ -78,11 +79,7 @@ const AdminAnalytics = () => {
     }, [fetchAnalytics, fetchRealtimeStats]);
 
     if (loading) {
-        return (
-            <div className="flex justify-center items-center h-96">
-                <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-maroon"></div>
-            </div>
-        );
+        return <AdminLoading fullScreen text="Loading analytics..." />;
     }
 
     const salesTrendData = {
