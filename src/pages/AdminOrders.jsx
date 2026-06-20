@@ -218,20 +218,28 @@ const AdminOrders = () => {
 
   const updateBulkStatus = async (newStatus) => {
     if (selectedOrders.length === 0) return;
-    if (!window.confirm(`Update ${selectedOrders.length} orders to ${newStatus}?`)) return;
-
-    const loadingToast = toast.loading(`Updating ${selectedOrders.length} orders...`);
-    try {
-      const token = localStorage.getItem('token');
-      await Promise.all(selectedOrders.map(id =>
-        axios.put(`/api/admin/orders/${id}`, { orderStatus: newStatus }, { headers: { Authorization: `Bearer ${token}` } })
-      ));
-      toast.success('Orders updated successfully', { id: loadingToast });
-      setSelectedOrders([]);
-      fetchOrders();
-    } catch (_) {
-      toast.error('Bulk update failed', { id: loadingToast });
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Bulk Update Orders',
+      message: `Update ${selectedOrders.length} orders to ${newStatus}?`,
+      type: 'warning',
+      confirmText: 'Update',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        const loadingToast = toast.loading(`Updating ${selectedOrders.length} orders...`);
+        try {
+          const token = localStorage.getItem('token');
+          await Promise.all(selectedOrders.map(id =>
+            axios.put(`/api/admin/orders/${id}`, { orderStatus: newStatus }, { headers: { Authorization: `Bearer ${token}` } })
+          ));
+          toast.success('Orders updated successfully', { id: loadingToast });
+          setSelectedOrders([]);
+          fetchOrders();
+        } catch (_) {
+          toast.error('Bulk update failed', { id: loadingToast });
+        }
+      }
+    });
   };
 
   const toggleOrderSelection = (id) => {
@@ -322,18 +330,26 @@ const AdminOrders = () => {
   };
 
   const handleDeleteOrder = async (orderId) => {
-    if (!window.confirm('Are you sure you want to delete this order?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/orders/${orderId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('Order deleted successfully');
-      fetchOrders();
-    } catch {
-      toast.error('Failed to delete order');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Order?',
+      message: 'Are you sure you want to delete this order?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/admin/orders/${orderId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('Order deleted successfully');
+          fetchOrders();
+        } catch {
+          toast.error('Failed to delete order');
+        }
+      }
+    });
   };
 
   const getStatusColor = (status) => {
@@ -711,24 +727,32 @@ const AdminOrders = () => {
                           ? "Mark this order as PAID? This will count towards revenue."
                           : "Change payment status?";
 
-                        if (window.confirm(confirmMsg)) {
-                          const previousOrders = [...orders];
-                          setOrders(prev => prev.map(o =>
-                            o._id === order._id ? { ...o, paymentStatus: newStatus } : o
-                          ));
+                        setConfirmDialog({
+                          isOpen: true,
+                          title: 'Change Payment Status',
+                          message: confirmMsg,
+                          type: 'warning',
+                          confirmText: 'Confirm',
+                          onConfirm: async () => {
+                            setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+                            const previousOrders = [...orders];
+                            setOrders(prev => prev.map(o =>
+                              o._id === order._id ? { ...o, paymentStatus: newStatus } : o
+                            ));
 
-                          try {
-                            const token = localStorage.getItem('token');
-                            await axios.put(`/api/admin/orders/${order._id}`, {
-                              paymentStatus: newStatus
-                            }, { headers: { Authorization: `Bearer ${token}` } });
-                            toast.success(`Payment marked as ${newStatus}`);
-                            fetchOrders();
-                          } catch {
-                            setOrders(previousOrders);
-                            toast.error('Failed to update payment status');
+                            try {
+                              const token = localStorage.getItem('token');
+                              await axios.put(`/api/admin/orders/${order._id}`, {
+                                paymentStatus: newStatus
+                              }, { headers: { Authorization: `Bearer ${token}` } });
+                              toast.success(`Payment marked as ${newStatus}`);
+                              fetchOrders();
+                            } catch {
+                              setOrders(previousOrders);
+                              toast.error('Failed to update payment status');
+                            }
                           }
-                        }
+                        });
                       }}
                       className={`input-field text-sm py-1 px-2 w-full lg:w-auto border ${order.paymentStatus === 'paid' ? 'border-green-300 text-green-700' : 'border-orange-300 text-orange-700'}`}
                     >
