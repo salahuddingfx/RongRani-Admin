@@ -4,6 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -154,14 +155,7 @@ const AdminUsers = () => {
 
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-maroon mx-auto mb-4"></div>
-          <p className="text-slate font-medium">Loading users...</p>
-        </div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading users..." />;
   }
 
   return (

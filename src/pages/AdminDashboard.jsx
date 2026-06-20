@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Package, ShoppingBag, Users, DollarSign, TrendingUp, Ticket, BarChart3, ArrowUp, ArrowDown, Zap } from 'lucide-react';
 import axios from 'axios';
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Area, AreaChart } from 'recharts';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({
@@ -59,11 +60,7 @@ const AdminDashboard = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading dashboard..." />;
   }
 
   return (

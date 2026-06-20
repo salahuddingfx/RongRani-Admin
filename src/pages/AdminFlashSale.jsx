@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Zap, Plus, Trash2, Calendar, Search, Save, X } from 'lucide-react';
 import toast from 'react-hot-toast';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminFlashSale = () => {
     const [flashSales, setFlashSales] = useState([]);
@@ -457,7 +458,11 @@ const AdminFlashSale = () => {
                             ? (sale.isActive ? 'bg-emerald-50 text-emerald-600' : 'bg-amber-50 text-amber-600')
                             : 'bg-slate-100 text-slate-500';
 
-                    return (
+    if (loading) {
+        return <AdminLoading fullScreen text="Loading flash sales..." />;
+    }
+
+    return (
                     <div key={sale._id} className={`bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-card p-5 ${sale.isActive && !isExpired ? 'ring-1 ring-maroon/30' : ''}`}>
                         <div className="flex justify-between items-start mb-4">
                             <div>

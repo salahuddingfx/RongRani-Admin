@@ -3,6 +3,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
 import { Flame } from 'lucide-react';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminHotOffer = () => {
   const [loading, setLoading] = useState(true);
@@ -93,11 +94,7 @@ const AdminHotOffer = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-80">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading hot offer..." />;
   }
 
   return (

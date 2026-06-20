@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 import { Star, CheckCircle, XCircle, Trash2 } from 'lucide-react';
 import { useSocket } from '../contexts/socketContextBase';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -83,11 +84,7 @@ const AdminReviews = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-80">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading reviews..." />;
   }
 
   return (

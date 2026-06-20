@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Truck, MapPin, Gift } from 'lucide-react';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminDeliverySettings = () => {
   const [loading, setLoading] = useState(true);
@@ -60,11 +61,7 @@ const AdminDeliverySettings = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-80">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading delivery settings..." />;
   }
 
   return (

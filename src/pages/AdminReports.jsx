@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Cell, PieChart, Pie } from 'recharts';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminReports = () => {
   const [data, setData] = useState({
@@ -29,11 +30,7 @@ const AdminReports = () => {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-80">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading reports..." />;
   }
 
   const orderStatusData = data.orderStatusCounts.map((item) => ({

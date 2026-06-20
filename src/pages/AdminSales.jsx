@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { BarChart3, TrendingUp, DollarSign, ShoppingBag, Users, Package, Calendar } from 'lucide-react';
 import axios from 'axios';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminSales = () => {
   const [salesData, setSalesData] = useState({
@@ -44,9 +45,7 @@ const AdminSales = () => {
   }, [fetchSalesData]);
 
   if (loading) {
-    return <div className="flex justify-center items-center h-96">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-    </div>;
+    return <AdminLoading fullScreen text="Loading sales data..." />;
   }
 
   return (

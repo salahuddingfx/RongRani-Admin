@@ -3,6 +3,7 @@ import { Image as ImageIcon, Plus, Edit, Trash2, Eye, EyeOff, Upload, X, Sparkle
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminBanners = () => {
   const [banners, setBanners] = useState([]);
@@ -180,11 +181,7 @@ const AdminBanners = () => {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center h-96">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading banners..." />;
   }
 
   return (

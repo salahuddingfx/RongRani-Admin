@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { useSocket } from '../contexts/socketContextBase';
 import CourierDetailsModal from '../components/CourierDetailsModal';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
@@ -415,9 +416,7 @@ const AdminOrders = () => {
   });
 
   if (loading) {
-    return <div className="flex justify-center items-center h-96">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-maroon"></div>
-    </div>;
+    return <AdminLoading fullScreen text="Loading orders..." />;
   }
 
   return (

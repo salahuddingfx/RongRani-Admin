@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 import { Plus, Edit, Trash2, X, Package, Eye, EyeOff, Search, Star, Upload, Loader2, Image as ImageIcon } from 'lucide-react';
 import ConfirmDialog from '../components/ConfirmDialog';
+import AdminLoading from '../components/AdminLoading';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState([]);
@@ -240,11 +241,7 @@ const AdminCategories = () => {
   );
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center h-96">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-maroon"></div>
-      </div>
-    );
+    return <AdminLoading fullScreen text="Loading categories..." />;
   }
 
   return (
