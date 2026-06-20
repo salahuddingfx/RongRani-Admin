@@ -165,7 +165,7 @@ const AdminUsers = () => {
             </h1>
             <p className="text-slate text-lg">Manage all registered users and their permissions</p>
           </div>
-          <button className="bg-maroon text-white px-6 py-3 rounded-xl font-bold hover:shadow-2xl hover:scale-105 transition-all flex items-center space-x-2 w-full sm:w-auto justify-center">
+          <button className="bg-maroon text-white px-6 py-3 rounded-xl font-bold transition-colors hover:bg-maroon/90 flex items-center space-x-2 w-full sm:w-auto justify-center">
             <UserPlus className="h-5 w-5" />
             <span>Add New User</span>
           </button>
@@ -173,7 +173,7 @@ const AdminUsers = () => {
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-          <div className="bg-blue-600 text-white p-6 rounded-2xl shadow-lg">
+          <div className="bg-blue-600 text-white p-6 rounded-2xl shadow-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/80 text-sm font-semibold mb-1">Total Users</p>
@@ -182,7 +182,7 @@ const AdminUsers = () => {
               <Users className="h-12 w-12 opacity-30" />
             </div>
           </div>
-          <div className="bg-maroon text-white p-6 rounded-2xl shadow-lg">
+          <div className="bg-maroon text-white p-6 rounded-2xl shadow-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/80 text-sm font-semibold mb-1">Admins</p>
@@ -191,7 +191,7 @@ const AdminUsers = () => {
               <Shield className="h-12 w-12 opacity-30" />
             </div>
           </div>
-          <div className="bg-purple-600 text-white p-6 rounded-2xl shadow-lg">
+          <div className="bg-purple-600 text-white p-6 rounded-2xl shadow-card">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-white/80 text-sm font-semibold mb-1">Customers</p>
@@ -211,13 +211,13 @@ const AdminUsers = () => {
               placeholder="Search by name or email..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate"
+              className="w-full pl-12 pr-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:border-maroon text-slate"
             />
           </div>
           <select
             value={filterRole}
             onChange={(e) => setFilterRole(e.target.value)}
-            className="px-4 py-3 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon text-slate font-medium"
+            className="px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:border-maroon text-slate font-medium"
           >
             <option value="all">All Roles</option>
             <option value="customer">Customers</option>
@@ -228,24 +228,24 @@ const AdminUsers = () => {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-maroon/10">
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-card overflow-hidden border border-slate-100 dark:border-slate-700">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[900px]">
-            <thead className="bg-maroon text-white">
+            <thead className="bg-slate-50 dark:bg-slate-700/50">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-bold uppercase">Avatar</th>
-                <th className="px-6 py-4 text-left text-sm font-bold uppercase">Name</th>
-                <th className="px-6 py-4 text-left text-sm font-bold uppercase">Contact</th>
-                <th className="px-6 py-4 text-left text-sm font-bold uppercase">Role</th>
-                <th className="px-6 py-4 text-left text-sm font-bold uppercase">Joined</th>
-                <th className="px-6 py-4 text-center text-sm font-bold uppercase">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Avatar</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Name</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Contact</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Role</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Joined</th>
+                <th className="px-6 py-4 text-center text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate/10">
+            <tbody className="divide-y divide-slate-100 dark:divide-slate-700">
               {filteredUsers.map((user) => (
-                <tr key={user._id} className="hover:bg-cream/30 transition-colors">
+                <tr key={user._id} className="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-colors">
                   <td className="px-6 py-4">
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white shadow-lg ${getRoleBadge(user.role)}`}>
+                    <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white ${getRoleBadge(user.role)}`}>
                       {user.name?.charAt(0).toUpperCase()}
                     </div>
                   </td>
@@ -331,8 +331,8 @@ const AdminUsers = () => {
         )}
       </div>
       {editingUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-xl p-6">
+        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-elevated w-full max-w-xl p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-black text-maroon">Edit User</h2>
               <button
@@ -350,7 +350,7 @@ const AdminUsers = () => {
                 <input
                   value={editForm.name}
                   onChange={(e) => setEditForm((prev) => ({ ...prev, name: e.target.value }))}
-                  className="w-full px-3 py-2 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:border-maroon"
                   type="text"
                 />
               </div>
@@ -359,7 +359,7 @@ const AdminUsers = () => {
                 <input
                   value={editForm.email}
                   onChange={(e) => setEditForm((prev) => ({ ...prev, email: e.target.value }))}
-                  className="w-full px-3 py-2 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:border-maroon"
                   type="email"
                 />
               </div>
@@ -368,7 +368,7 @@ const AdminUsers = () => {
                 <input
                   value={editForm.phone}
                   onChange={(e) => setEditForm((prev) => ({ ...prev, phone: e.target.value }))}
-                  className="w-full px-3 py-2 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:border-maroon"
                   type="text"
                 />
               </div>
@@ -377,7 +377,7 @@ const AdminUsers = () => {
                 <input
                   value={editForm.city}
                   onChange={(e) => setEditForm((prev) => ({ ...prev, city: e.target.value }))}
-                  className="w-full px-3 py-2 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:border-maroon"
                   type="text"
                 />
               </div>
@@ -386,7 +386,7 @@ const AdminUsers = () => {
                 <select
                   value={editForm.role}
                   onChange={(e) => setEditForm((prev) => ({ ...prev, role: e.target.value }))}
-                  className="w-full px-3 py-2 border-2 border-maroon/20 rounded-xl focus:outline-none focus:border-maroon"
+                  className="w-full px-3 py-2 border border-slate-200 dark:border-slate-600 rounded-xl focus:outline-none focus:border-maroon"
                 >
                   <option value="customer">Customer</option>
                   <option value="admin">Admin</option>
@@ -398,14 +398,14 @@ const AdminUsers = () => {
             <div className="flex items-center justify-end gap-3 mt-6">
               <button
                 onClick={() => setEditingUser(null)}
-                className="px-4 py-2 rounded-xl border-2 border-maroon/20 text-slate font-semibold hover:border-maroon"
+                className="px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-600 text-slate font-semibold hover:border-maroon transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleSaveUser}
                 disabled={savingUser}
-                className="px-5 py-2 rounded-xl bg-maroon text-white font-bold hover:shadow-xl disabled:opacity-60"
+                className="px-5 py-2 rounded-xl bg-maroon text-white font-bold hover:bg-maroon/90 disabled:opacity-60 transition-colors"
               >
                 {savingUser ? 'Saving...' : 'Save Changes'}
               </button>
