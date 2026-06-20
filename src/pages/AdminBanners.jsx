@@ -17,6 +17,7 @@ const AdminBanners = () => {
     isActive: true,
     order: 0
   });
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const [imageMetadata, setImageMetadata] = useState(null);
 
   const fileInputRef = useRef(null);
@@ -142,18 +143,26 @@ const AdminBanners = () => {
   };
 
   const handleDelete = async (bannerId) => {
-    if (!window.confirm('Are you sure you want to delete this banner?')) return;
-
-    try {
-      const token = localStorage.getItem('token');
-      await axios.delete(`/api/admin/banners/${bannerId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      toast.success('Banner deleted successfully');
-      fetchBanners();
-    } catch {
-      toast.error('Failed to delete banner');
-    }
+    setConfirmDialog({
+      isOpen: true,
+      title: 'Delete Banner?',
+      message: 'Are you sure you want to delete this banner?',
+      type: 'danger',
+      confirmText: 'Delete',
+      onConfirm: async () => {
+        setConfirmDialog(prev => ({ ...prev, isOpen: false }));
+        try {
+          const token = localStorage.getItem('token');
+          await axios.delete(`/api/admin/banners/${bannerId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          toast.success('Banner deleted successfully');
+          fetchBanners();
+        } catch {
+          toast.error('Failed to delete banner');
+        }
+      }
+    });
   };
 
   const toggleActive = async (bannerId, currentStatus) => {
@@ -537,6 +546,15 @@ const AdminBanners = () => {
           </div>
         </div>
       )}
+      <ConfirmDialog
+        isOpen={confirmDialog.isOpen}
+        title={confirmDialog.title}
+        message={confirmDialog.message}
+        type={confirmDialog.type}
+        confirmText={confirmDialog.confirmText}
+        onConfirm={confirmDialog.onConfirm}
+        onCancel={() => setConfirmDialog(prev => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

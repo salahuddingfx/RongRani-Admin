@@ -3,11 +3,13 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Star, CheckCircle, XCircle, Trash2 } from 'lucide-react';
 import { useSocket } from '../contexts/socketContextBase';
+import ConfirmDialog from '../components/ConfirmDialog';
 
 const AdminReviews = () => {
   const [reviews, setReviews] = useState([]);
   const [statusFilter, setStatusFilter] = useState('all');
   const [loading, setLoading] = useState(true);
+  const [confirmDialog, setConfirmDialog] = useState({ isOpen: false, title: '', message: '', onConfirm: null });
   const { socket } = useSocket() || {};
 
   const fetchReviews = useCallback(async (status = 'all') => {
